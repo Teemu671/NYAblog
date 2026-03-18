@@ -22,6 +22,7 @@ create table "posts" (
 
 create table "users" (
     "user_id" serial primary key,
+    "email" varchar(100) unique not null,
     "username" varchar(26) not null,
     "password" varchar(255) not null,
     "role" varchar(16) not null,
