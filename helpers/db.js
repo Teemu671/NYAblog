@@ -1,11 +1,20 @@
 require('dotenv').config({quiet: true})
 const { Pool } = require('pg')
 
+const pool = new Pool ({
+    user: process.env.DB_USERNAME,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT
+})
 const query = (sql,values=[]) => {
   return new Promise(async(resolve,reject)=> {
     try {
-      const pool = openDb()
-      const result = await pool.query(sql,values)
+      
+      const client = await pool.connect()
+      const result = await client.query(sql,values)
+      client.release()
       resolve(result)
     } catch (error) {
       reject(error.message)
@@ -13,16 +22,7 @@ const query = (sql,values=[]) => {
   })
 }
 
-const openDb = () => {
-    const pool = new Pool ({
-        user: process.env.DB_USERNAME,
-        host: process.env.DB_HOST,
-        database: process.env.DB_NAME,
-        password: process.env.DB_PASSWORD,
-        port: process.env.DB_PORT
-    })
-    return pool;
-}
+
 
 module.exports = {
   query

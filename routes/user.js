@@ -13,9 +13,10 @@ userRouter.post("/login",async(req,res) => {
         const result = await query(sql,[req.body.email])
         if (result.rowCount === 1) {
             try {
-            if (await argon2.verify(req.body.password,result.rows[0].password)) {
-                const token = jwt.sign({user: req.body.email},process.env.JWT_SECRET_KEY)
-                    console.log(token)
+            const userRole = result.rows[0].role;
+            if (await argon2.verify(result.rows[0].password,req.body.password)) {
+                const token = jwt.sign({user: req.body.email, userRole},process.env.JWT_SECRET_KEY)
+                    //console.log(token)
                     const user = result.rows[0]
                     res.status(200).json(
                     {
@@ -49,12 +50,12 @@ userRouter.post("/login",async(req,res) => {
 })
 
 userRouter.post("/register",async(req,res) => {
-      if (req.body.password) {
+      if (req.body.password && req.body.username && req.body.email) {
         try {
           const hash = await argon2.hash(req.body.password);
-          const sql = "insert into users (email, password) values ($1,$2) returning id"
-          const result = await query(sql,[req.body.email,hash])
-          res.status(200).json({id: result.rows[0].id}) 
+          const sql = "insert into users (username, email, password, role) values ($1,$2,$3,$4) returning user_id"
+          const result = await query(sql,[req.body.username,req.body.email,hash,'user'])
+          res.status(200).json({id: result.rows[0].user_id}) 
         } catch (error) {
           res.statusMessage = error
           res.status(500).json({error: error})
