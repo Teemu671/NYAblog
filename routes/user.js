@@ -40,7 +40,7 @@ userRouter.post("/login",async(req,res) => {
         }
     } else {
     res.statusMessage = 'Bad request'
-    res.status(400).json({error: 'Invalid login'})
+    res.status(400).json({error: 'Invalid request'})
     }
     } catch (error) {
         res.statusMessage = error
@@ -51,14 +51,21 @@ userRouter.post("/login",async(req,res) => {
 
 userRouter.post("/register",async(req,res) => {
       if (req.body.password && req.body.username && req.body.email) {
-        try {
-          const hash = await argon2.hash(req.body.password);
-          const sql = "insert into users (username, email, password, role) values ($1,$2,$3,$4) returning user_id"
-          const result = await query(sql,[req.body.username,req.body.email,hash,'user'])
-          res.status(200).json({id: result.rows[0].user_id}) 
-        } catch (error) {
-          res.statusMessage = error
-          res.status(500).json({error: error})
+        const sql = "select count(*) as count from users where email = $1 or username = $2"
+        const result = await query(sql,[req.body.email,req.body.username])
+        if (result.rows[0].count<1){
+          try {
+            const hash = await argon2.hash(req.body.password);
+            const sql = "insert into users (username, display_name, email, password, role) values ($1,$1,$2,$3,$4) returning user_id"
+            const result = await query(sql,[req.body.username,req.body.email,hash,'user'])
+            res.status(200).json({id: result.rows[0].user_id}) 
+          } catch (error) {
+            res.statusMessage = error
+            res.status(500).json({error: error})
+          }
+        } else {
+          res.statusMessage = 'Invalid register'
+          res.status(401).json({error: 'User exists'})
         }
       } else {
         res.statusMessage = 'Bad request'

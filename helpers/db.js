@@ -1,7 +1,7 @@
 require('dotenv').config({quiet: true})
 const { Pool } = require('pg')
 
-const pool = new Pool ({
+const DBpool = new Pool ({
     user: process.env.DB_USERNAME,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
@@ -12,7 +12,7 @@ const query = (sql,values=[]) => {
   return new Promise(async(resolve,reject)=> {
     try {
       
-      const client = await pool.connect()
+      const client = await DBpool.connect()
       const result = await client.query(sql,values)
       client.release()
       resolve(result)
@@ -25,5 +25,5 @@ const query = (sql,values=[]) => {
 
 
 module.exports = {
-  query
+  DBpool, query
 }
