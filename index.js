@@ -1,43 +1,30 @@
+const cluster = require('node:cluster');
+const process = require('node:process');
 
-//express
-const express = require('express')
+const { httpServer, httpsServer } = require('./webapp')
+const { api } = require('./api')
 
-//http / https
-const http = require('http');
-const https = require('https');
-
+const APIPort = 3001;
 const httpPort = 80;
 const httpsPort = 443;
-//file reading
-const fs = require('fs');
 
-//cookies
-// const cookieParser = require('cookie-parser');
+if (cluster.isPrimary) {
+  console.log(`Primary ${process.pid} is running`);
 
-const app = express();
+  // Fork workers.
+  for (let i = 0; i < 4; i++) {
+    cluster.fork();
+  }
 
-app.use(express.json());
-app.use(express.urlencoded({extended: false}))
-// app.use(cookieParser())
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+  
+} else {
 
-app.use('/', express.static(__dirname + '/html'));
+  api.listen(APIPort);
+  httpServer.listen(httpPort);
+  httpsServer.listen(httpsPort);
 
-//app.use("/", )
-
-//get certificate
-// const creds = {
-//     key: fs.readFileSync(''),
-//     cert: fs.readFileSync(''),
-// };
-
-
-const httpServer = http.createServer(app);
-//const httpsServer = https.createServer(creds,app);
-
-httpServer.listen(httpPort, () => {
-  console.log(`server running at http://localhost:${httpPort}`);
-});
-
-// httpsServer.listen(httpsPort, () => {
-//   console.log(`server running at http://localhost:${httpsPort}`);
-// });
+  console.log(`Worker ${process.pid}  started`);
+}

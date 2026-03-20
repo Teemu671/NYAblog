@@ -1,4 +1,70 @@
 const express = require('express')
 const { query } = require('../helpers/db.js')
+const argon2 = require('argon2')
+const jwt = require('jsonwebtoken')
+require('dotenv').config({quiet: true})
 
 const userRouter = express.Router()
+
+userRouter.post("/login",async(req,res) => {
+  try {
+    if (req.body.email) {
+        const sql = "select * from users where email=$1"
+        const result = await query(sql,[req.body.email])
+        if (result.rowCount === 1) {
+            try {
+            if (await argon2.verify(req.body.password,result.rows[0].password)) {
+                const token = jwt.sign({user: req.body.email},process.env.JWT_SECRET_KEY)
+                    console.log(token)
+                    const user = result.rows[0]
+                    res.status(200).json(
+                    {
+                        "id":user.id,
+                        "email":user.email,
+                        "token":token
+                    }
+                    )
+            } else {
+                res.statusMessage = 'Invalid login'
+                res.status(401).json({error: 'Invalid login'})
+            }
+            } catch (err) {
+            console.log(err)
+            res.statusMessage = 'Server Error'
+            res.status(500).json({error: 'Server Error'})
+            }
+        } else {
+        res.statusMessage = 'Invalid login'
+        res.status(401).json({error: 'Invalid login'})
+        }
+    } else {
+    res.statusMessage = 'Bad request'
+    res.status(400).json({error: 'Invalid login'})
+    }
+    } catch (error) {
+        res.statusMessage = error
+        res.status(500).json({error: error})
+    }
+    
+})
+
+userRouter.post("/register",async(req,res) => {
+      if (req.body.password) {
+        try {
+          const hash = await argon2.hash(req.body.password);
+          const sql = "insert into users (email, password) values ($1,$2) returning id"
+          const result = await query(sql,[req.body.email,hash])
+          res.status(200).json({id: result.rows[0].id}) 
+        } catch (error) {
+          res.statusMessage = error
+          res.status(500).json({error: error})
+        }
+      } else {
+        res.statusMessage = 'Bad request'
+        res.status(400).json({error: 'Invalid login'})
+      }
+})
+
+
+
+module.exports = { userRouter }
