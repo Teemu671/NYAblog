@@ -51,6 +51,8 @@ userRouter.post("/login",async(req,res) => {
 
 userRouter.post("/register",async(req,res) => {
       if (req.body.password && req.body.username && req.body.email) {
+        
+
         const sql = "select count(*) as count from users where email = $1 or username = $2"
         const result = await query(sql,[req.body.email,req.body.username])
         if (result.rows[0].count<1){

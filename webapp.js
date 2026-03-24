@@ -13,10 +13,17 @@ const app = express();
 
 require('dotenv').config({quiet: true})
 //get certificate
-const creds = {
-    key: fs.readFileSync(process.env.keyPath),
-    cert: fs.readFileSync(process.env.certPath),
-};
+const GetCreds = () => {
+    try {
+        return {
+            key: fs.readFileSync(process.env.keyPath),
+            cert: fs.readFileSync(process.env.certPath),
+        };
+    } catch (error){
+        return null;
+    }
+}
+const creds = GetCreds();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
@@ -26,6 +33,12 @@ app.use(express.urlencoded({extended: false}))
 app.use('/', express.static(__dirname + '/html'));
 
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(creds,app);
 
-module.exports = { httpServer, httpsServer }
+if (creds != null){
+    const httpsServer = https.createServer(creds,app);
+    module.exports = { httpServer, httpsServer }
+} else {
+    module.exports = { httpServer }
+}
+
+

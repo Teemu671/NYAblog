@@ -26,7 +26,9 @@ if (cluster.isPrimary) {
 
   api.listen(APIPort);
   httpServer.listen(httpPort);
-  httpsServer.listen(httpsPort);
-
+  if (httpsServer) {
+    httpsServer.listen(httpsPort);
+  }
+  
   console.log(`Worker ${process.pid}  started`);
 }

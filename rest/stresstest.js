@@ -28,9 +28,8 @@ if (cluster.isPrimary) {
   console.log(`Primary ${process.pid} is running`);
 
   // Fork workers.
-  for (let i = 0; i < 2; i++) {
-    cluster.fork();
-  }
+  cluster.fork();
+  cluster.fork();
 
   cluster.on('exit', (worker, code, signal) => {
     console.log(`worker ${worker.process.pid} died`);
@@ -65,6 +64,6 @@ if (cluster.isPrimary) {
         //This is the data we are posting, it needs to be a string or a buffer
         req.write(str);
         req.end();
-    },50)
+    },75)
     
 }
