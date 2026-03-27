@@ -1,0 +1,131 @@
+/* ----------------------------- Reset ----------------------------- */
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* ----------------------------- Header Navbar ----------------------------- */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: grey;
+    height: 60px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navItem {
+    padding: 1%;
+    text-align: center;
+}
+
+.logo {
+    color: white;
+}
+
+/* ----------------------------- Layout ----------------------------- */
+.main-wrapper {
+    height: calc(100vh - 60px);
+    display: flex;
+    overflow: hidden;
+}
+
+/* ----------------------------- Sidebar ----------------------------- */
+.sidebar {
+    height: 100%;
+    width: 15%;
+    padding: 5px;
+    text-align: center;
+    background-color: lightgray;
+    border-right: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.sidebar li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* ----------------------------- Content Area ----------------------------- */
+.content-area {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.welcome {
+    text-align: center;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-wrapper {
+    padding: 1.5rem;
+}
+
+.card {
+    width: 35rem;
+    text-decoration: none;
+}
+
+/* ----------------------------- Login Page ----------------------------- */
+.login-content {
+    padding: 5% 33%;
+}
+
+.btn-primary {
+    width: 100%;
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* ----------------------------- Register Page ----------------------------- */
+.register-content {
+    padding: 5% 33%;
+}
+
+.register-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+}
+
+.register-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.register-login-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
