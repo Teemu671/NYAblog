@@ -1,3 +1,4 @@
+require('dotenv').config({quiet: true})
 
 //express
 const express = require('express')
@@ -8,8 +9,6 @@ const https = require('https');
 
 
 //get certificate
-require('dotenv').config({quiet: true});
-
 const GetCreds = () => {
     try {
         return {
@@ -28,12 +27,15 @@ const path = require('path')
 
 const app = express();
 
+
+
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 //app.use(cookieParser())
 
 //Routing
-app.use('/', express.static(path.join(__dirname, 'html')))
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 const httpServer = http.createServer(app);
 
