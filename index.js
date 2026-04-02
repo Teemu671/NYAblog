@@ -2,7 +2,7 @@ const cluster = require('node:cluster');
 const process = require('node:process');
 
 const { httpServer, httpsServer } = require('./webapp')
-const { api, apiSecure } = require('./api')
+const { api } = require('./api')
 const { DBpool } = require('./helpers/db.js')
 
 const APIPort = 3001;
@@ -24,9 +24,7 @@ if (cluster.isPrimary) {
   // },1000)
 } else {
 
-  //API
   api.listen(APIPort);
-  //Webapp
   httpServer.listen(httpPort);
   if (httpsServer) {
     httpsServer.listen(httpsPort);

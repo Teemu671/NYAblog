@@ -87,5 +87,3 @@ Content-Type: application/json
   "email":"test@foo.com",
   "password":"test123"
 }
-### GET API
-GET http://cat0s.com:3001/
