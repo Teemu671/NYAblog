@@ -25,7 +25,6 @@ server.use(fileUpload())
 server.use(express.static('public'))
 
 
-
 //Routing
 server.get('/',(req,res)=>{
     res.send('Welcome to my new Express api!')
@@ -41,8 +40,3 @@ if (creds != null){
 } else {
     module.exports = { api }
 }
-
-
-
-
-

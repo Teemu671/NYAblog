@@ -5,7 +5,8 @@ const { httpServer, httpsServer } = require('./webapp')
 const { api, apiSecure } = require('./api')
 const { DBpool } = require('./helpers/db.js')
 
-const APIPort = 3001;
+const APIPort = 3080;
+const APISecurePort = 3443;
 const httpPort = 80;
 const httpsPort = 443;
 
@@ -27,7 +28,7 @@ if (cluster.isPrimary) {
   //API
   api.listen(APIPort);
   if (apiSecure) {
-    apiSecure.listen(httpsPort);
+    apiSecure.listen(APISecurePort);
   }
   //Webapp
   httpServer.listen(httpPort);
