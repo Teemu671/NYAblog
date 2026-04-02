@@ -1,4 +1,3 @@
-require('dotenv').config({quiet: true})
 
 //express
 const express = require('express')
@@ -9,6 +8,8 @@ const https = require('https');
 
 
 //get certificate
+require('dotenv').config({quiet: true});
+
 const GetCreds = () => {
     try {
         return {
@@ -19,16 +20,13 @@ const GetCreds = () => {
         return null;
     }
 }
-const creds = GetCreds();
+
 //file reading
 const fs = require('fs');
 // Path
 const path = require('path')
 
 const app = express();
-
-
-
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
@@ -38,6 +36,8 @@ app.use(express.urlencoded({extended: false}))
 app.use('/', express.static(path.join(__dirname, 'html')))
 
 const httpServer = http.createServer(app);
+
+const creds = GetCreds();
 
 if (creds != null){
     const httpsServer = https.createServer(creds,app);
