@@ -9,7 +9,7 @@ const server = express();
 
 require('dotenv').config({quiet: true})
 // TLS Creds
-const cred = require('./helpers/creds.js');
+const { cred } = require('./helpers/creds.js');
 const creds = cred()
 
 server.use(express.json());
