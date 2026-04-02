@@ -37,10 +37,6 @@ app.use(express.urlencoded({extended: false}))
 //Routing
 app.use('/', express.static(path.join(__dirname, 'html')))
 
-app.use((req, res, next)=>{
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
-})
-
 const httpServer = http.createServer(app);
 
 if (creds != null){
