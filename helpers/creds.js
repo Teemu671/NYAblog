@@ -2,7 +2,7 @@
 const fs = require('fs');
 
 //get certificate
-const creds = () => {
+const cred = () => {
     try {
         return {
             key: fs.readFileSync(process.env.keyPath),
@@ -13,4 +13,4 @@ const creds = () => {
     }
 }
 
-module.exports = { creds }
+module.exports = { cred }
