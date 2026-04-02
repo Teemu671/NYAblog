@@ -5,38 +5,25 @@ const express = require('express')
 const http = require('http');
 const https = require('https');
 
-//file reading
-const fs = require('fs');
-
-const app = express();
-
+const server = express();
 
 require('dotenv').config({quiet: true})
-//get certificate
-const GetCreds = () => {
-    try {
-        return {
-            key: fs.readFileSync(process.env.keyPath),
-            cert: fs.readFileSync(process.env.certPath),
-        };
-    } catch (error){
-        return null;
-    }
-}
-const creds = GetCreds();
+// TLS Creds
+const cred = require('./helpers/creds.js');
+const creds = cred()
 
-app.use(express.json());
-app.use(express.urlencoded({extended: false}))
-//app.use(cookieParser())
+server.use(express.json());
+server.use(express.urlencoded({extended: false}))
+//server.use(cookieParser())
 
 //Routing
-app.use('/', express.static(__dirname + '/html'));
+server.use('/', express.static(__dirname + '/html'));
 
-const httpServer = http.createServer(app);
+const httpServer = http.createServer(server);
 
 if (creds != null){
-    const httpsServer = https.createServer(creds,app);
-    module.exports = { httpServer, httpsServer }
+    const httpSecureServer = https.createServer(creds,server);
+    module.exports = { httpServer, httpSecureServer }
 } else {
     module.exports = { httpServer }
 }

@@ -7,21 +7,37 @@ const { userRouter } = require('./routes/user.js')
 //cookies
 // const cookieParser = require('cookie-parser');
 
-const api = express();
+// TLS Creds
+const cred = require('./helpers/creds.js');
+const creds = cred()
 
-api.use(cors())
-api.use(express.json())
-api.use(express.urlencoded({extended: false}))
-api.use(fileUpload())
-api.use(express.static('public'))
+const server = express();
+
+server.use(cors())
+server.use(express.json())
+server.use(express.urlencoded({extended: false}))
+server.use(fileUpload())
+server.use(express.static('public'))
+
+
 
 //Routing
-api.get('/',(req,res)=>{
+server.get('/',(req,res)=>{
     res.send('Welcome to my new Express api!')
 })
-api.use('/user',userRouter) 
+server.use('/user',userRouter) 
 
-module.exports = { api }
+
+const api = http.createServer(server);
+
+if (creds != null){
+    const apiSecure = https.createServer(creds,server);
+    module.exports = { api, apiSecure }
+} else {
+    module.exports = { api }
+}
+
+
 
 
 
