@@ -3,7 +3,6 @@ const express = require('express')
 
 //http / https
 const http = require('http');
-const https = require('https');
 
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
@@ -31,12 +30,6 @@ server.get('/',(req,res)=>{
 })
 server.use('/user',userRouter) 
 
-
 const api = http.createServer(server);
 
-if (creds != null){
-    const apiSecure = https.createServer(creds,server);
-    module.exports = { api, apiSecure }
-} else {
-    module.exports = { api }
-}
+module.exports = { api }
