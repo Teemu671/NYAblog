@@ -13,8 +13,8 @@ const { userRouter } = require('./routes/user.js')
 // const cookieParser = require('cookie-parser');
 
 // TLS Creds
-const { cred } = require('./helpers/creds.js');
-const creds = cred()
+const { GetCreds } = require('./helpers/creds.js');
+const creds = GetCreds();
 
 const server = express();
 

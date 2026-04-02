@@ -4,15 +4,15 @@ require('dotenv').config({quiet: true})
 const fs = require('fs');
 
 //get certificate
-const cred = () => {
+const GetCreds = () => {
     try {
         return {
             key: fs.readFileSync(process.env.keyPath),
-            cert: fs.readFileSync(process.env.certPath),
+            cert: fs.readFileSync(process.env.certPath)
         };
     } catch (error){
         return null;
     }
 }
 
-module.exports = { cred }
+module.exports = { GetCreds }
