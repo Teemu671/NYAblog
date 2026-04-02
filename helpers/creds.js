@@ -1,3 +1,5 @@
+require('dotenv').config({quiet: true})
+
 //file reading
 const fs = require('fs');
 
