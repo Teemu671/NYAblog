@@ -3,7 +3,6 @@ const express = require('express')
 
 //http / https
 const http = require('http');
-const https = require('https');
 
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
@@ -11,10 +10,6 @@ const { blogRouter } = require('./routes/blog.js')
 const { userRouter } = require('./routes/user.js')
 //cookies
 // const cookieParser = require('cookie-parser');
-
-// TLS Creds
-const { GetCreds } = require('./helpers/creds.js');
-const creds = GetCreds();
 
 const server = express();
 
@@ -33,9 +28,5 @@ server.use('/user',userRouter)
 
 const api = http.createServer(server);
 
-if (creds != null){
-    const apiSecure = https.createServer(creds,server);
-    module.exports = { api, apiSecure }
-} else {
-    module.exports = { api }
-}
+module.exports = { api }
+

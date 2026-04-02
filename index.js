@@ -26,9 +26,6 @@ if (cluster.isPrimary) {
 
   //API
   api.listen(APIPort);
-  if (apiSecure) {
-    apiSecure.listen(APIPort);
-  }
   //Webapp
   httpServer.listen(httpPort);
   if (httpsServer) {
