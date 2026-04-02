@@ -25,7 +25,6 @@ server.get('/',(req,res)=>{
 })
 server.use('/user',userRouter) 
 
-
 const api = http.createServer(server);
 
 module.exports = { api }

@@ -8,10 +8,21 @@ const https = require('https');
 const server = express();
 
 require('dotenv').config({quiet: true})
-// TLS Creds
-const { GetCreds } = require('./helpers/creds.js');
-const creds = GetCreds();
+//file reading
+const fs = require('fs');
 
+//get certificate
+const GetCreds = () => {
+    try {
+        return {
+            key: fs.readFileSync(process.env.keyPath),
+            cert: fs.readFileSync(process.env.certPath)
+        };
+    } catch (error){
+        return null;
+    }
+}
+const creds = GetCreds()
 server.use(express.json());
 server.use(express.urlencoded({extended: false}))
 //server.use(cookieParser())
