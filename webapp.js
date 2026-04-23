@@ -35,7 +35,7 @@ app.use(express.urlencoded({extended: false}))
 //app.use(cookieParser())
 
 //Routing
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, 'html')))
 
 const httpServer = http.createServer(app);
 
