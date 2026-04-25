@@ -18,6 +18,9 @@
         <div class="navItem">
             <a class="nav-link" href="login.html">Login</a>
         </div>
+        <div class="navItem mobile-sidebar">
+            <button id="sidebar-toggle">☰</button>
+        </div>
     </div>
 
     <!-- Main content -->
@@ -54,7 +57,10 @@
             $('#editor').summernote({
             placeholder: 'Write your blog...',
             height: 300
-            });
+          });
+            $('#sidebar-toggle').click(function() {
+                $('.sidebar').toggle();
+          });
         });
     </script>
 
