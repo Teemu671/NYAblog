@@ -16,6 +16,7 @@ create table "users" (
 
 create table "posts" (
     "post_id" serial primary key,
+    "image_id" int,
     "parent_id" int,
     "author_id" int,
     "text" varchar(255) not null,
@@ -27,7 +28,10 @@ create table "posts" (
     ON DELETE CASCADE,
     CONSTRAINT fk_post FOREIGN KEY (parent_id)
     REFERENCES posts(post_id)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+    CONSTRAINT fk_image FOREIGN KEY (image_id)
+    REFERENCES images(image_id)
+    ON DELETE SET NULL
 );
 create table "images" (
     "image_id" serial primary key,

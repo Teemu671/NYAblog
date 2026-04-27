@@ -2,9 +2,9 @@ const express = require('express')
 const fileUpload = require('express-fileupload');
 const { query } = require('../helpers/db.js')
 
-const cdnRouter = express.Router()
+const cdnPRouter = express.Router()
 
-cdnRouter.post("/upload",async(req,res) => {
+cdnPRouter.post("/upload",async(req,res) => {
     let sampleFile;
     let uploadPath;
 
@@ -33,4 +33,4 @@ cdnRouter.post("/upload",async(req,res) => {
 })
 
 
-module.exports = { cdnRouter }
+module.exports = { cdnPRouter }
