@@ -14,16 +14,17 @@ userRouter.post("/login",async(req,res) => {
         if (result.rowCount === 1) {
             try {
             const userRole = result.rows[0].role;
+            const userID = result.rows[0].user_id;
+            const userName = result.rows[0].username;
             if (await argon2.verify(result.rows[0].password,req.body.password)) {
-                const token = jwt.sign({user: req.body.email, userRole},process.env.JWT_SECRET_KEY)
+                const token = jwt.generateAccessToken(userName, userID, userRole)
 
                     const user = result.rows[0]
                     res.clearCookie(`NYAblog`)
                     res.cookie(`NYAblog`,`${token}`)
                     res.status(200).json(
                     {
-                        "id":user.id,
-                        "email":user.email,
+                        message: "Login successful",
                         "token":token
                     }
                     )
@@ -41,15 +42,19 @@ userRouter.post("/login",async(req,res) => {
         res.status(401).json({error: 'Invalid login'})
         }
     } else {
-    res.statusMessage = 'Bad request'
-    res.status(400).json({error: 'Invalid request'})
+      res.statusMessage = 'Bad request'
+      res.status(400).json({error: 'Invalid request'})
     }
     } catch (error) {
-        res.statusMessage = error
-        res.status(500).json({error: error})
+        res.statusMessage = 'Bad request'
+        res.status(400).json({error: 'Invalid request'})
     }
     
 })
+
+function generateAccessToken(uname, id, role) {
+  return jwt.sign({ uname, id, role }, process.env.SECRET_TOKEN,{ expiresIn: '7200s' });
+}
 
 const unameReg = /^(?=^.{3,16}$)[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$/
 const emailReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -71,10 +76,10 @@ userRouter.post("/register",async(req,res) => {
                   const hash = await argon2.hash(req.body.password);
                   const sql = "insert into users (username, display_name, email, password, role) values ($1,$1,$2,$3,$4) returning user_id"
                   const result = await query(sql,[req.body.username,req.body.email,hash,'user'])
-                  res.status(200).json({id: result.rows[0].user_id}) 
+                  res.status(200).json({message: "Successfully account created"}) 
                 } catch (error) {
-                  res.statusMessage = error
-                  res.status(500).json({error: error})
+                  res.statusMessage = "Server error"
+                  res.status(500).json({error: "Server error"})
                 }
               } else {
                 res.statusMessage = 'Invalid register'

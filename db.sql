@@ -29,6 +29,14 @@ create table "posts" (
     REFERENCES posts(post_id)
     ON DELETE CASCADE
 );
-
+create table "images" (
+    "image_id" serial primary key,
+    "path" varchar(255) not null,
+    "uploader_id" int,
+    "uploaded_at" timestamp not null default NOW(),
+    CONSTRAINT fk_users FOREIGN KEY (uploader_id)
+    REFERENCES users(user_id)
+    ON DELETE SET NULL
+);
 
 insert into posts (parent_id,author_id) 

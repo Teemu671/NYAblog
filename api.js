@@ -3,7 +3,10 @@ const express = require('express')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const { blogRouter } = require('./routes/blog.js')
+const { blogPRouter } = require('./routes/blogprotected.js')
 const { userRouter } = require('./routes/user.js')
+const { cdnPRouter } = require('./routes/cdnprotected.js')
+
 const { authenticateToken } = require('./helpers/auth.js')
 
 //cookies
@@ -19,16 +22,16 @@ api.use(express.static('public'))
 api.use(cookieParser())
 
 //Routing
-api.get('/',(req,res)=>{
-    res.send('Welcome to my new Express api!')
-})
 api.use('/user',userRouter) 
+
+api.use('/blog',blogRouter)
 
 
 api.use(authenticateToken);
 
+api.use('/blog',blogPRouter) 
 
-api.use('/blog',blogRouter) 
+api.use('/cdn', cdnPRouter)
 
 module.exports = { api }
 

@@ -36,6 +36,7 @@ app.use(express.urlencoded({extended: false}))
 
 //Routing
 app.use('/',express.static('html',{extensions:['html']}));
+app.use('/cdn',express.static('files'));
 
 const httpServer = http.createServer(app);
 
