@@ -16,8 +16,10 @@ userRouter.post("/login",async(req,res) => {
             const userRole = result.rows[0].role;
             if (await argon2.verify(result.rows[0].password,req.body.password)) {
                 const token = jwt.sign({user: req.body.email, userRole},process.env.JWT_SECRET_KEY)
-                    //console.log(token)
+
                     const user = result.rows[0]
+                    res.clearCookie(`NYAblog`)
+                    res.cookie(`NYAblog`,`${token}`)
                     res.status(200).json(
                     {
                         "id":user.id,
@@ -49,25 +51,46 @@ userRouter.post("/login",async(req,res) => {
     
 })
 
+const unameReg = /^(?=^.{3,16}$)[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$/
+const emailReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+const pswReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+
 userRouter.post("/register",async(req,res) => {
       if (req.body.password && req.body.username && req.body.email) {
-        
+        const uname = req.body.username;
+        const psw = req.body.password;
+        const email = req.body.email;
+        if (unameReg.test(uname)){
+          if (emailReg.test(email)){
+            if (pswReg.test(psw)){
 
-        const sql = "select count(*) as count from users where email = $1 or username = $2"
-        const result = await query(sql,[req.body.email,req.body.username])
-        if (result.rows[0].count<1){
-          try {
-            const hash = await argon2.hash(req.body.password);
-            const sql = "insert into users (username, display_name, email, password, role) values ($1,$1,$2,$3,$4) returning user_id"
-            const result = await query(sql,[req.body.username,req.body.email,hash,'user'])
-            res.status(200).json({id: result.rows[0].user_id}) 
-          } catch (error) {
-            res.statusMessage = error
-            res.status(500).json({error: error})
+              const sql = "select count(*) as count from users where email = $1 or username = $2"
+              const result = await query(sql,[req.body.email,req.body.username])
+              if (result.rows[0].count<1){
+                try {
+                  const hash = await argon2.hash(req.body.password);
+                  const sql = "insert into users (username, display_name, email, password, role) values ($1,$1,$2,$3,$4) returning user_id"
+                  const result = await query(sql,[req.body.username,req.body.email,hash,'user'])
+                  res.status(200).json({id: result.rows[0].user_id}) 
+                } catch (error) {
+                  res.statusMessage = error
+                  res.status(500).json({error: error})
+                }
+              } else {
+                res.statusMessage = 'Invalid register'
+                res.status(401).json({error: 'User exists'})
+              }
+            } else {
+              res.statusMessage = 'Invalid register'
+              res.status(401).json({error: 'Invalid password'})
+            }
+          } else {
+            res.statusMessage = 'Invalid register'
+            res.status(401).json({error: 'Invalid email'})
           }
         } else {
           res.statusMessage = 'Invalid register'
-          res.status(401).json({error: 'User exists'})
+          res.status(401).json({error: 'Invalid username'})
         }
       } else {
         res.statusMessage = 'Bad request'

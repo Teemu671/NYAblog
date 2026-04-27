@@ -4,8 +4,10 @@ const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const { blogRouter } = require('./routes/blog.js')
 const { userRouter } = require('./routes/user.js')
+const { authenticateToken } = require('./helpers/auth.js')
+
 //cookies
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 const api = express();
 
@@ -14,12 +16,19 @@ api.use(express.json())
 api.use(express.urlencoded({extended: false}))
 api.use(fileUpload())
 api.use(express.static('public'))
+api.use(cookieParser())
 
 //Routing
 api.get('/',(req,res)=>{
     res.send('Welcome to my new Express api!')
 })
 api.use('/user',userRouter) 
+
+
+api.use(authenticateToken);
+
+
+api.use('/blog',blogRouter) 
 
 module.exports = { api }
 
