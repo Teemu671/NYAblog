@@ -45,8 +45,12 @@ html, body {
     text-align: center;
 }
 
+.desktop-only {
+    display: block;
+}
+
 .logo {
-    width: 5rem;
+    width: clamp(3rem, 8vw, 5rem);
     color: white;
 }
 
@@ -265,6 +269,10 @@ html, body {
     color: var(--text);
 }
 
+.mobile-login {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .navbar {
         height: auto;
@@ -272,12 +280,18 @@ html, body {
         align-items: stretch;
     }
     .navItem {
-        padding: 0.5rem;
+        padding: 0.1rem 0.5rem;
     }
     .logo {
         display: block;
     }
     .mobile-sidebar {
+        display: block;
+    }
+    .desktop-only {
+        display: none;
+    }
+    .mobile-login {
         display: block;
     }
     .main-wrapper {
