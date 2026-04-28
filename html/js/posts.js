@@ -37,8 +37,8 @@ function formatDate(value) {
 }
 
 function createPostCard(post) {
-  const user = e => {loadUser(post.author_id)}
-  const image = e => {loadImage(post.image_id)}
+  const user = await loadUser(post.author_id)
+  const image = await loadImage(post.image_id)
 
 
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
