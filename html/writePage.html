@@ -44,6 +44,9 @@
                         <div class="post-controls">
                             <input type="text" name="title" placeholder="Post title" required>
                             <input type="text" name="tag" placeholder="Tag">
+                            <input type="file" id="image-input" accept="image/*">
+                            <button type="button" id="upload-btn">Upload Cover Image</button>
+                            <span id="upload-status"></span>
                             <button type="submit">Publish</button>
                         </div>
                     </form>
@@ -93,7 +96,7 @@
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${token}`
                         },
-                        body: JSON.stringify({ message: text, title, tag })
+                        body: JSON.stringify({ message: text, title, tag, image: uploadedImageId })
                     });
 
                     if (!response.ok) {
@@ -107,7 +110,43 @@
                     alert('Failed to publish post: ' + error.message);
                 }
             });
+
+                        let uploadedImageId = null;
+
+            $('#upload-btn').click(async function () {
+                const file = $('#image-input')[0].files[0];
+                if (!file) { alert('Pick an image first.'); return; }
+
+                const storedUser = sessionStorage.getItem('user');
+                const token = storedUser ? JSON.parse(storedUser)?.token : null;
+                if (!token) { alert('You must be logged in.'); return; }
+
+                const formData = new FormData();
+                formData.append('sampleFile', file);
+
+                try {
+                    await fetch('https://cat0s.com:3001/cdn/upload', {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${token}` },
+                        body: formData
+                    });
+
+                    const galleryRes = await fetch('https://cat0s.com:3001/cdn/gallery', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const gallery = await galleryRes.json();
+                    uploadedImageId = gallery[gallery.length - 1].image_id;
+
+                    $('.blog-banner').css('background-image', `url(https://cat0s.com:3001/cdn/image/${uploadedImageId})`);
+                    $('#upload-status').text('✓ Image uploaded');
+                } catch (err) {
+                    alert('Upload failed: ' + err.message);
+                }
+            });
         });
+
+
+
     </script>
 <script type="module" src="js/user.js"></script>
   </body>

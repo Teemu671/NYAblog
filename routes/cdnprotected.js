@@ -24,7 +24,7 @@ cdnPRouter.post("/upload",async(req,res) => {
         const result2 = await query("update images set path = $1 where image_id = $2",[uploadPath, result.rows[0].image_id])
         sampleFile.mv(uploadPath, function(err) {
             if (err) return res.status(500).json({error: err.message})
-            res.status(200).json({message:"file uploaded!"})
+            res.status(200).json({message:"file uploaded!", image_id: result.rows[0].image_id})
         });
         
         
@@ -50,5 +50,15 @@ cdnPRouter.get("/gallery",async(req,res) => {
     
 })
 
+cdnPRouter.get("/image/:imageID", async (req, res) => {
+    try {
+        const sql = "SELECT path FROM images WHERE image_id = $1"
+        const result = await query(sql, [req.params.imageID])
+        if (result.rowCount === 0) return res.status(404).json({ error: "Not found" })
+        res.sendFile(result.rows[0].path)
+    } catch (error) {
+        res.status(500).json({ error: "Server error" })
+    }
+})
 
 module.exports = { cdnPRouter }
