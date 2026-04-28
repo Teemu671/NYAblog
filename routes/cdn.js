@@ -10,7 +10,7 @@ cdnRouter.get("/image/:imageID", async (req, res) => {
         if (result.rowCount === 0) return res.status(404).json({ error: "Not found" })
         res.sendFile(result.rows[0])
     } catch (error) {
-        res.status(500).json({ error: "Server error" })
+        res.status(500).json({ error: error })
     }
 })
 
