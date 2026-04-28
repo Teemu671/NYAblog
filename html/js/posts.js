@@ -38,35 +38,29 @@ function formatDate(value) {
 
 function createPostCard(post) {
   
-  const user = loadUser(post.author_id)
-  const image = loadImage(post.image_id)
-  let username;
-  let filename;
-  image.then(function(username) {
-    user.then(function(filename) {
-      const title = escapeHtml(formatPostTitle(post.text, post.post_id));
-      const snippet = escapeHtml(formatPostSnippet(post.text));
-      const tag = escapeHtml(post.tag || 'Blog');
-      const date = escapeHtml(formatDate(post.created_at));
-      const author = escapeHtml( username || 'Unknown');
-      const postId = post.post_id;
+  
 
-      const wrapper = document.createElement('div');
-      wrapper.className = 'card-wrapper';
-      wrapper.innerHTML = `
-        <a class="card" href="/blogPage?postId=${postId}">
-          <img src="${post.image_id ? 'https://cat0s.com/cdn/'+ filename : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
-          <div class="card-body">
-            <span class="post-tag">${tag}</span>
-            <h5 class="txtcolor">${title}</h5>
-            <p class="txtcolor">${snippet}</p>
-            <div class="post-meta">${author} ${date}</div>
-          </div>
-        </a>
-      `;
-      return wrapper;
-      });
-  });
+  const title = escapeHtml(formatPostTitle(post.text, post.post_id));
+  const snippet = escapeHtml(formatPostSnippet(post.text));
+  const tag = escapeHtml(post.tag || 'Blog');
+  const date = escapeHtml(formatDate(post.created_at));
+  const author = escapeHtml( username || 'Unknown');
+  const postId = post.post_id;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'card-wrapper';
+  wrapper.innerHTML = `
+    <a class="card" href="/blogPage?postId=${postId}">
+      <img src="${post.image_id ? 'https://cat0s.com/cdn/'+ filename : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
+      <div class="card-body">
+        <span class="post-tag">${tag}</span>
+        <h5 class="txtcolor">${title}</h5>
+        <p class="txtcolor">${snippet}</p>
+        <div class="post-meta">${author} ${date}</div>
+      </div>
+    </a>
+  `;
+  return wrapper;
 }
 
 async function loadPosts() {
@@ -82,9 +76,20 @@ async function loadPosts() {
       container.innerHTML = '<div class="empty-state">No posts found.</div>';
       return;
     }
-
+    
     container.innerHTML = '';
-    posts.forEach(post => container.appendChild(createPostCard(post)));
+    posts.forEach(post => 
+      {
+        const user = loadUser(post.author_id)
+        const image = loadImage(post.image_id)
+        user.then((user)=>{
+          image.then((image)=>{
+            return container.appendChild(createPostCard(post, user, image))
+          })
+        })
+        
+
+      });
   } catch (error) {
     container.innerHTML = `<div class="empty-state">Unable to load posts: ${escapeHtml(error.message)}</div>`;
   }
