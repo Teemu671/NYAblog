@@ -35,6 +35,7 @@
                     <div class="username-container">
                         <div class="profile-pic"><img src="https://placehold.co/100x100"></div>
                         <div class="profile-username"> <h1>Username</h1> </div>
+                        <button class="changePfpBtn"> Change Profile Picture </button>
                     </div>
                 </div>
                 <div class="card-grid">
@@ -71,6 +72,16 @@
         $('.sidebar').toggle();
       });
     });
+  </script>
+  <script type="module">
+    import { User } from './user.js'
+    const currentUser = new User()
+    const params = new URLSearchParams(window.location.search)
+    const profileId = params.get('id')
+    if (Number(currentUser.id) === Number(profileId)) {
+      document.getElementById('changePfpBtn').style.display = 'block'
+    }
+    
   </script>
   </body>
 </html>

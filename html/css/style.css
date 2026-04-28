@@ -166,7 +166,8 @@ html, body {
 }
 
 .btn-primary {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 2.6rem;
     border-radius: 0.4rem;
@@ -246,6 +247,16 @@ html, body {
     margin-top: auto;
     margin-bottom: 0.5rem;
     margin-left: 0.3rem;
+}
+
+.changePfpBtn {
+    display: block;
+    width: 10%;
+    height: 2.6rem;
+    border-radius: 0.4rem;
+    background-color: var(--main-color);
+    border: solid 1px black;
+    transition-duration: 0.5s;   
 }
 
 /* ----------------------------- Blog Page ----------------------------- */
