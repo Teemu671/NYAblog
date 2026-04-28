@@ -50,7 +50,7 @@ async function loadPost() {
       return;
     }
 
-    const title = post.text ? post.text.trim().split('\n')[0].slice(0, 80) : `Post #${post.post_id}`;
+    const title = post.title ? post.title.trim().split('\n')[0].slice(0, 80) : `Post #${post.post_id}`;
     const author = post.author_name || post.author_id || 'Author';
     const date = formatDate(post.created_at);
     const tag = post.tag ? escapeHtml(post.tag) : 'Blog';
