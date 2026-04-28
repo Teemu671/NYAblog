@@ -81,13 +81,13 @@ async function loadPosts() {
 
 async function loadUser(uid) {
 
-
+  
   try {
     const response = await fetch(USERS_ENDPOINT+uid);
     if (!response.ok) throw new Error(response.statusText);
     const user = await response.json();
 
-    if (!Array.isArray(user) || user.length === 0) {
+    if (user.length === 0) {
       alert("user not found");
       return;
     }
