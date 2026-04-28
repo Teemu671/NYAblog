@@ -52,7 +52,6 @@ function createPostCard(post, user, image) {
       <div class="card-body">
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>
-        <p class="txtcolor">${snippet}</p>
         <div class="post-meta">${author} ${date}</div>
       </div>
     </a>
