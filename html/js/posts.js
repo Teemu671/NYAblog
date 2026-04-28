@@ -48,7 +48,7 @@ function createPostCard(post) {
   wrapper.className = 'card-wrapper';
   wrapper.innerHTML = `
     <a class="card" href="/blogPage?postId=${postId}">
-      <img src="https://placehold.co/600x400/EEE/31343C" class="card-img-top" alt="${tag}">
+      <img src="${post.image_id ? `https://cat0s.com:3001/cdn/image/${post.image_id}` : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
       <div class="card-body">
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>

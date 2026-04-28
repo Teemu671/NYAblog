@@ -138,7 +138,7 @@
                     uploadedImageId = gallery[gallery.length - 1].image_id;
 
                     $('.blog-banner').css('background-image', `url(https://cat0s.com:3001/cdn/image/${uploadedImageId})`);
-                    $('#upload-status').text('✓ Image uploaded');
+                    $('#upload-status').text(' Image uploaded');
                 } catch (err) {
                     alert('Upload failed: ' + err.message);
                 }
