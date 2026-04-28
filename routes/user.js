@@ -53,7 +53,7 @@ userRouter.post("/login",async(req,res) => {
 })
 
 function generateAccessToken(uname, id, role) {
-  return jwt.sign({ uname, id, role }, process.env.SECRET_TOKEN,{ expiresIn: '7200s' });
+  return jwt.sign({ uname, id, role }, process.env.JWT_SECRET_KEY,{ expiresIn: '7200s' });
 }
 
 const unameReg = /^(?=^.{3,16}$)[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$/
