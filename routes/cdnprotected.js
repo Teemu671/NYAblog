@@ -20,14 +20,14 @@ cdnPRouter.post("/upload",async(req,res) => {
         const result = await query(sql,[uploadPath, req.user.id])
         uploadPath = __dirname + '/files/' + result.row[0];
         sampleFile.mv(uploadPath, function(err) {
-            if (err) return res.status(500).send("Server error");
+            if (err) return res.status(500).json({error: error})
             res.send('File uploaded!');
         });
         
         
     } catch (error) {
-        res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        res.statusMessage = error
+        res.status(500).json({error: error})
     }
     // Use the mv() method to place the file somewhere on your server
     
