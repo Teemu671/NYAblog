@@ -1,12 +1,11 @@
 const cluster = require('node:cluster');
 const process = require('node:process');
 
-const { httpServer, httpsServer } = require('./webapp')
+const { httpsServer } = require('./webapp')
 const { api } = require('./api')
 const { DBpool } = require('./helpers/db.js')
 
 const APIPort = 3001;
-const httpPort = 80;
 const httpsPort = 443;
 
 if (cluster.isPrimary) {
@@ -25,10 +24,7 @@ if (cluster.isPrimary) {
 } else {
 
   api.listen(APIPort);
-  httpServer.listen(httpPort);
-  if (httpsServer) {
-    httpsServer.listen(httpsPort);
-  }
-  
+  httpsServer.listen(httpsPort);
+
   console.log(`Worker ${process.pid}  started`);
 }
