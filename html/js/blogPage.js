@@ -1,4 +1,4 @@
-const API_BASE = `${window.location.protocol}//${window.location.hostname}:3001`;
+const API_BASE = "http://cat0s.com:3001";
 
 function escapeHtml(text) {
   return String(text || '')
