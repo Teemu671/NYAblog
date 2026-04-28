@@ -1,5 +1,6 @@
 const API_BASE = "https://cat0s.com:3001";
-const POSTS_ENDPOINT = `${API_BASE}/blog/all/0`;
+const POSTS_ENDPOINT = `${API_BASE}/blog/all/`;
+const USERS_ENDPOINT = `${API_BASE}/user/uid/`;
 
 function escapeHtml(text) {
   return String(text || '')
@@ -38,7 +39,7 @@ function createPostCard(post) {
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
-  const author = escapeHtml(post.author_name || 'Unknown');
+  const author = escapeHtml(loadUser(post.author_id) || 'Unknown');
   const postId = post.post_id;
 
   const wrapper = document.createElement('div');
@@ -75,6 +76,26 @@ async function loadPosts() {
     posts.forEach(post => container.appendChild(createPostCard(post)));
   } catch (error) {
     container.innerHTML = `<div class="empty-state">Unable to load posts: ${escapeHtml(error.message)}</div>`;
+  }
+}
+
+async function loadUser(uid) {
+
+
+  try {
+    const response = await fetch(USERS_ENDPOINT+uid);
+    if (!response.ok) throw new Error(response.statusText);
+    const user = await response.json();
+
+    if (!Array.isArray(user) || user.length === 0) {
+      alert("user not found");
+      return;
+    }
+
+    return user.display_name;
+    
+  } catch (error) {
+ 
   }
 }
 

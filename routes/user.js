@@ -104,12 +104,12 @@ userRouter.post("/register",async(req,res) => {
       }
 })
 
-userRouter.get("/:id",async(req,res) => {
+userRouter.get("/uid/:uid",async(req,res) => {
   // display_name, username, role, avatar_id
     try {
         const sql = "select display_name, username, role, avatar_id from users where user_id = $1;"
-        const result = await query(sql, [req.params.id])
-        const rows = result.rows ? result.rows : []
+        const result = await query(sql, [req.params.uid])
+        const rows = result.rows ? result.rows[0] : []
         res.status(200).json(rows)
     } catch (error) {
         res.statusMessage = "Server error"

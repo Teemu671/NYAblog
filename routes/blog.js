@@ -18,11 +18,10 @@ const blogRouter = express.Router()
     ON DELETE CASCADE
 );*/
 
-blogRouter.get("/all/:skip",async(req,res) => {
+blogRouter.get("/all",async(req,res) => {
     try {
-        const skip = Number(req.params.skip);
-        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts order by post_id desc limit 5 offset $1;"
-        const result = await query(sql, [skip])
+        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts order by post_id desc;"
+        const result = await query(sql)
         const rows = result.rows ? result.rows : []
         res.status(200).json(rows)
     } catch (error) {
@@ -30,11 +29,10 @@ blogRouter.get("/all/:skip",async(req,res) => {
         res.status(500).json({error: "Server error"})
     }
 })
-blogRouter.get("/tag/:tag/:skip",async(req,res) => {
+blogRouter.get("/tag/:tag",async(req,res) => {
     try {
-        const skip = Number(req.params.skip);
-        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where tag like concat($1::text,'%') order by post_id desc limit 5 offset $2;"
-        const result = await query(sql,[(req.params.tag).toString(),skip])
+        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where tag like concat($1::text,'%') order by post_id desc;"
+        const result = await query(sql,[(req.params.tag).toString()])
         const rows = result.rows ? result.rows : []
         res.status(200).json(rows)
     } catch (error) {
@@ -47,6 +45,17 @@ blogRouter.get("/id/:postID",async(req,res) => {
         const skip = Number(req.params.skip);
         const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where post_id = $1"
         const result = await query(sql,[req.params.postID])
+        res.status(200).json(result.rows ? result.rows[0] : null)
+    } catch (error) {
+        res.statusMessage = "Server error"
+        res.status(500).json({error: "Server error"})
+    }
+})
+blogRouter.get("/uid/:uid",async(req,res) => {
+    try {
+        const skip = Number(req.params.skip);
+        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where author_id = $1 order by post_id desc"
+        const result = await query(sql,[req.params.uid])
         res.status(200).json(result.rows ? result.rows[0] : null)
     } catch (error) {
         res.statusMessage = "Server error"
