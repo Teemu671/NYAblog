@@ -131,11 +131,11 @@
                         body: formData
                     });
 
-                    const galleryRes = await fetch('https://cat0s.com:3001/cdn/gallery', {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    const gallery = await galleryRes.json();
-                    uploadedImageId = gallery[gallery.length - 1].image_id;
+                    // const galleryRes = await fetch('https://cat0s.com:3001/cdn/gallery', {
+                    //     headers: { 'Authorization': `Bearer ${token}` }
+                    // });
+                    // const gallery = await galleryRes.json();
+                    // uploadedImageId = gallery[gallery.length - 1].image_id;
 
                     $('.blog-banner').css('background-image', `url(https://cat0s.com:3001/cdn/image/${uploadedImageId})`);
                     $('#upload-status').text(' Image uploaded');
