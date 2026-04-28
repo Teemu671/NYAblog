@@ -67,7 +67,7 @@
     }
 
     try {
-      const res = await fetch('http://cat0s.com:3001/user/register', {
+      const res = await fetch('https://cat0s.com:3001/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password })
