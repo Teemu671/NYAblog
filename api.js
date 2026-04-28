@@ -44,11 +44,7 @@ app.use('/cdn', cdnRouter)
 
 app.use('/blog',blogRouter)
 
-app.use(authenticateToken);
 
-app.use('/blog',blogPRouter) 
-
-app.use('/cdn', cdnPRouter)
 
 const creds = GetCreds();
 
