@@ -38,6 +38,7 @@ function createPostCard(post) {
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
+  const author = escapeHtml(post.author_name || 'Unknown');
   const postId = post.post_id;
 
   const wrapper = document.createElement('div');
@@ -49,7 +50,7 @@ function createPostCard(post) {
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>
         <p class="txtcolor">${snippet}</p>
-        <div class="post-meta">${date}</div>
+        <div class="post-meta">${author} ${date}</div>
       </div>
     </a>
   `;

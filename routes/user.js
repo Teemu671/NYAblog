@@ -60,6 +60,20 @@ const unameReg = /^(?=^.{3,16}$)[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$/
 const emailReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 const pswReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
+userRouter.get("/id/:userID", async (req, res) => {
+    try {
+        const sql = "SELECT username FROM users WHERE user_id = $1"
+        const result = await query(sql, [req.params.userID])
+        if (result.rowCount === 1) {
+            res.status(200).json(result.rows[0])
+        } else {
+            res.status(404).json({ error: "User not found" })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Server error" })
+    }
+})
+
 userRouter.post("/register",async(req,res) => {
       if (req.body.password && req.body.username && req.body.email) {
         const uname = req.body.username;
