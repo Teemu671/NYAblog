@@ -4,6 +4,7 @@ const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const { blogRouter } = require('./routes/blog.js')
 const { blogPRouter } = require('./routes/blogprotected.js')
+const { cdnRouter } = require('./routes/cdn.js')
 const { userRouter } = require('./routes/user.js')
 const { cdnPRouter } = require('./routes/cdnprotected.js')
 
@@ -38,6 +39,8 @@ app.use(cookieParser())
 
 //Routing
 app.use('/user',userRouter) 
+
+app.use('/cdn', cdnRouter)
 
 app.use('/blog',blogRouter)
 

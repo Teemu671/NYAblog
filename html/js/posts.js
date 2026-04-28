@@ -1,6 +1,8 @@
 const API_BASE = "https://cat0s.com:3001";
 const POSTS_ENDPOINT = `${API_BASE}/blog/all/`;
 const USERS_ENDPOINT = `${API_BASE}/user/uid/`;
+const IMAGE_ENDPOINT = `${API_BASE}/cdn/image/`;
+
 
 function escapeHtml(text) {
   return String(text || '')
@@ -35,20 +37,22 @@ function formatDate(value) {
 }
 
 function createPostCard(post) {
-  const user = loadUser(post.author_id)
-  
+  const user = e => {loadUser(post.author_id)}
+  const image = e => {loadImage(post.image_id)}
+
+
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
-  const author = escapeHtml( user || 'Unknown');
+  const author = escapeHtml( user.name || 'Unknown');
   const postId = post.post_id;
 
   const wrapper = document.createElement('div');
   wrapper.className = 'card-wrapper';
   wrapper.innerHTML = `
     <a class="card" href="/blogPage?postId=${postId}">
-      <img src="${post.image_id ? `https://cat0s.com:3001/cdn/image/${post.image_id}` : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
+      <img src="${post.image_id ? 'https://cat0s.com/cdn/'+ image.name : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
       <div class="card-body">
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>
@@ -93,6 +97,23 @@ async function loadUser(uid) {
     }
 
     return user;
+    
+  } catch (error) {
+ 
+  }
+};
+async function loadImage(id) {
+  try {
+    const response = await fetch(IMAGE_ENDPOINT+id);
+    if (!response.ok) throw new Error(response.statusText);
+    const image = await response.json();
+
+    if (image.length === 0) {
+      alert("image not found");
+      return;
+    }
+
+    return image;
     
   } catch (error) {
  
