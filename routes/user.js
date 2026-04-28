@@ -17,7 +17,7 @@ userRouter.post("/login",async(req,res) => {
             const userID = result.rows[0].user_id;
             const userName = result.rows[0].username;
             if (await argon2.verify(result.rows[0].password,req.body.password)) {
-                const token = jwt.generateAccessToken(userName, userID, userRole)
+                const token = generateAccessToken(userName, userID, userRole)
 
                     const user = result.rows[0]
                     res.clearCookie(`NYAblog`)
