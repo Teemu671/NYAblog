@@ -94,7 +94,7 @@ async function loadUser(uid) {
 
     user.display_name.then(
       res=>{
-        return user.display_name
+        return res;
       },err=>{
         return;
       }
