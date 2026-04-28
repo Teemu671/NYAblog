@@ -42,7 +42,7 @@ blogPRouter.post("/comment/:postID",async(req,res) => {
         }
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
 })
 blogPRouter.patch("/edit/:postID",async(req,res) => {
@@ -61,7 +61,7 @@ blogPRouter.patch("/edit/:postID",async(req,res) => {
         }
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
 })
 blogPRouter.delete("/delete/:postID",async(req,res) => {
@@ -76,7 +76,7 @@ blogPRouter.delete("/delete/:postID",async(req,res) => {
 
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
 })
 

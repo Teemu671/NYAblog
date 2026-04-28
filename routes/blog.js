@@ -23,10 +23,10 @@ blogRouter.get("/all",async(req,res) => {
         const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts order by post_id desc;"
         const result = await query(sql)
         const rows = result.rows ? result.rows : []
-        res.status(200).json(rows)
+        return res.status(200).json(rows)
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
 })
 blogRouter.get("/tag/:tag",async(req,res) => {
@@ -34,10 +34,10 @@ blogRouter.get("/tag/:tag",async(req,res) => {
         const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where tag like concat($1::text,'%') order by post_id desc;"
         const result = await query(sql,[(req.params.tag).toString()])
         const rows = result.rows ? result.rows : []
-        res.status(200).json(rows)
+        return res.status(200).json(rows)
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
 })
 blogRouter.get("/id/:postID",async(req,res) => {
@@ -45,10 +45,10 @@ blogRouter.get("/id/:postID",async(req,res) => {
         const skip = Number(req.params.skip);
         const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where post_id = $1"
         const result = await query(sql,[req.params.postID])
-        res.status(200).json(result.rows ? result.rows[0] : null)
+        return res.status(200).json(result.rows ? result.rows[0] : null)
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
 })
 blogRouter.get("/uid/:uid",async(req,res) => {
@@ -56,10 +56,10 @@ blogRouter.get("/uid/:uid",async(req,res) => {
         const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where author_id = $1 order by post_id desc"
         const result = await query(sql,[req.params.uid])
         const rows = result.rows ? result.rows : []
-        res.status(200).json(rows)
+        return res.status(200).json(rows)
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
 })
 

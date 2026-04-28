@@ -24,13 +24,13 @@ cdnPRouter.post("/upload",async(req,res) => {
         const result2 = await query("update images set path = $1, filename = $2 where image_id = $3",[uploadPath,`${(req.user.id).toString()}${result.rows[0].image_id}${sampleFile.name}`, result.rows[0].image_id])
         sampleFile.mv(uploadPath, function(err) {
             if (err) return res.status(500).json({error: err.message})
-            res.status(200).json({message:"file uploaded!", image_id: result.rows[0].image_id})
+            return res.status(200).json({message:"file uploaded!", image_id: result.rows[0].image_id})
         });
         
         
     } catch (error) {
         res.statusMessage = error
-        res.status(500).json({error: error})
+        return res.status(500).json({error: error})
     }
     // Use the mv() method to place the file somewhere on your server
     
@@ -40,12 +40,12 @@ cdnPRouter.get("/gallery",async(req,res) => {
         const sql = "select image_id from images where uploader_id = $1 order by image_id"
         const result = await query(sql,[req.user.id])
         const rows = result.rows ? result.rows : []
-        res.status(200).json(rows)
+        return res.status(200).json(rows)
         
         
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
     
 })
