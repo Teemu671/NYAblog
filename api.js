@@ -14,10 +14,7 @@ const cookieParser = require('cookie-parser');
 
 const api = express();
 
-api.use(cors({
-    origin: 'http://localhost',
-    credentials: true
-}))
+api.use(cors())
 api.use(express.json())
 api.use(express.urlencoded({extended: false}))
 api.use(fileUpload())
