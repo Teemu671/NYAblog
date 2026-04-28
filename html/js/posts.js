@@ -34,14 +34,14 @@ function formatDate(value) {
   });
 }
 
-function createPostCard(post) {
-  const user = loadUser(post.author_id);
+function createPostCard(post, user) {
+  
   
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
-  const author = escapeHtml( user.display_name || 'Unknown');
+  const author = escapeHtml( user || 'Unknown');
   const postId = post.post_id;
 
   const wrapper = document.createElement('div');
@@ -75,7 +75,10 @@ async function loadPosts() {
     }
 
     container.innerHTML = '';
-    posts.forEach(post => container.appendChild(createPostCard(post)));
+    posts.forEach(post => {
+      const user = loadUser(post.author_id).display_name;
+      return container.appendChild(createPostCard(post, user))
+    });
   } catch (error) {
     container.innerHTML = `<div class="empty-state">Unable to load posts: ${escapeHtml(error.message)}</div>`;
   }
