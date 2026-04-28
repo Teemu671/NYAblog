@@ -45,14 +45,14 @@ function createPostCard(post) {
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
-  const author = escapeHtml( user.name || 'Unknown');
+  const author = escapeHtml( user.display_name || 'Unknown');
   const postId = post.post_id;
 
   const wrapper = document.createElement('div');
   wrapper.className = 'card-wrapper';
   wrapper.innerHTML = `
     <a class="card" href="/blogPage?postId=${postId}">
-      <img src="${post.image_id ? 'https://cat0s.com/cdn/'+ image.name : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
+      <img src="${post.image_id ? 'https://cat0s.com/cdn/'+ image.filename : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
       <div class="card-body">
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>
