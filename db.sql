@@ -39,6 +39,7 @@ create table "posts" (
 );
 create table "images" (
     "image_id" serial primary key,
+    "filename" varchar(255),
     "path" varchar(255) not null,
     "uploader_id" int,
     "uploaded_at" timestamp not null default NOW(),

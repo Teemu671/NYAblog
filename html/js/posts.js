@@ -34,8 +34,8 @@ function formatDate(value) {
   });
 }
 
-function createPostCard(post, user) {
-  
+function createPostCard(post) {
+  const user = loadUser(post.author_id)
   
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
   const snippet = escapeHtml(formatPostSnippet(post.text));
@@ -75,10 +75,7 @@ async function loadPosts() {
     }
 
     container.innerHTML = '';
-    posts.forEach(post => {
-      const user = loadUser(post.author_id).display_name;
-      return container.appendChild(createPostCard(post, user))
-    });
+    posts.forEach(post => container.appendChild(createPostCard(post)));
   } catch (error) {
     container.innerHTML = `<div class="empty-state">Unable to load posts: ${escapeHtml(error.message)}</div>`;
   }
