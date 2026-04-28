@@ -35,25 +35,8 @@
             <div class="welcome">
                 <h1 class="txtcolor">Welcome to NYAblog</h1>
             </div>
-            <div class="card-grid">
-                <div class="card-wrapper">
-                    <a href="" class="card">
-                        <img src="https://placehold.co/600x400/EEE/31343C" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="txtcolor">First Blog Post</h5>
-                            <p class="txtcolor">Description</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="card-wrapper">
-                    <a href="" class="card">
-                        <img src="https://placehold.co/600x400/EEE/31343C" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="txtcolor">Second Blog Post</h5>
-                            <p class="txtcolor">Description</p>
-                        </div>
-                    </a>
-                </div>
+            <div class="card-grid" id="post-grid">
+                <div class="empty-state"> Loading posts </div>
             </div>
         </div>
     </div>
@@ -63,6 +46,7 @@
  -->
 
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+     <script src="js/posts.js"></script>
 
     <script>
         $(document).ready(function() {

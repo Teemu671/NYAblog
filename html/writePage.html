@@ -40,7 +40,13 @@
             <div class="blog-text-container">
                 <div class="blog-text">
                     <div id="editor"></div>
-                    <button type="button" id="post-button" class="btn btn-primary">Post </button>
+                    <form id="post-form">
+                        <div class="post-controls">
+                            <input type="text" name="title" placeholder="Post title" required>
+                            <input type="text" name="tag" placeholder="Tag">
+                            <button type="submit">Publish</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -57,12 +63,50 @@
     <script>
         $(document).ready(function() {
             $('#editor').summernote({
-            placeholder: 'Write your blog...',
-            height: 300
-          });
+                placeholder: 'Write your blog...',
+                height: 300
+            });
+
             $('#sidebar-toggle').click(function() {
                 $('.sidebar').toggle();
-          });
+            });
+
+            $('#post-form').on('submit', async function(event) {
+                event.preventDefault();
+
+                const text = $('#editor').summernote('code');
+                const title = $('input[name="title"]').val().trim();
+                const tag = $('input[name="tag"]').val().trim();
+                const storedUser = sessionStorage.getItem('user');
+                const user = storedUser ? JSON.parse(storedUser) : null;
+                const token = user?.token;
+
+                if (!token) {
+                    alert('You must be logged in to publish a post.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/blog/post', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ message: text, title, tag })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(errorData.error || response.statusText);
+                    }
+
+                    alert('Post published successfully.');
+                    window.location.href = '/';
+                } catch (error) {
+                    alert('Failed to publish post: ' + error.message);
+                }
+            });
         });
     </script>
 

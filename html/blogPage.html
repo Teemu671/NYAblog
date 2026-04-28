@@ -33,15 +33,16 @@
         <div class="content-area">
             <div class="blog-banner">
                 <div class="title-container">
-                    <a class="blog-username" href="/profile">name of writer</a>
+                    <a class="blog-username" href="/profile">Author</a>
                 </div>
             </div>
             <div class="blog-text-container">
-                <div class="blog-text">
-                    <p>
-                        make this plug in later to some cool thing where u can write this text u know?? also make it so that maybe also some pictures can be put here and maybe the banner too ??? cooool!!!! blaa blaballalalal
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
+                <div class="blog-text" id="post-display">
+                    <h2 id="post-title"> </h2>
+                    <div class="post-meta" id="post-meta"></div>
+                    <div id="post-body">
+                        <p> </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,6 +53,7 @@
  -->
 
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+     <script src="js/blogPage.js"></script>
 
     <script>
         $(document).ready(function() {

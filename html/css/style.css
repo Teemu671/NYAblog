@@ -111,6 +111,53 @@ html, body {
 .card {
     width: 35rem;
     text-decoration: none;
+    display: block;
+    color: inherit;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 0.75rem 0.75rem 0 0;
+    display: block;
+}
+
+.card-body {
+    background: white;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: none;
+    border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.post-tag {
+    display: inline-block;
+    background-color: var(--main-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.post-meta {
+    color: #555;
+    font-size: 0.9rem;
+    margin: 1rem 0;
+}
+
+.empty-state {
+    width: 100%;
+    text-align: center;
+    color: #555;
+    padding: 2rem 1rem;
+}
+
+.blog-text h2 {
+    margin-top: 0;
+}
+
+.blog-text p {
+    line-height: 1.75;
 }
 
 /* ----------------------------- Login Page ----------------------------- */
@@ -179,17 +226,36 @@ html, body {
     transition-duration: 0.5s;
 }
 
-.login-prompt {
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-}
+    .post-controls {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 1rem;
+    }
 
-/* ----------------------------- Profile Page ----------------------------- */
-.profile-banner {
-    display: flex;
-    background-color: lightgray;
-    height: 15rem;
+    .post-controls input {
+        flex: 1;
+        min-width: 10rem;
+        padding: 0.85rem 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .post-controls button {
+        padding: 0.85rem 1.25rem;
+        border: none;
+        background-color: var(--main-color);
+        color: white;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .post-controls button:hover {
+        background-color: var(--btn-hover);
+    }
     border-bottom: 1px solid;
 }
 
@@ -211,6 +277,7 @@ html, body {
 .profile-username {
     margin-top: auto;
     margin-bottom: 0.5rem;
+    margin-left: 0.3rem;
 }
 
 /* ----------------------------- Blog Page ----------------------------- */
