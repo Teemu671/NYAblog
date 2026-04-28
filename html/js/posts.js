@@ -79,12 +79,7 @@ async function loadPosts() {
         const image = loadImage(post.image_id)
         const user = loadUser(post.author_id)
         Promise.all([user,image]).then((values)=>{
-          
-            if (post.image_id != null) {
-              return container.appendChild(createPostCard(post, values[0], values[1]))
-            } else {
-              return container.appendChild(createPostCard(post, values[0], null))
-            }
+            return container.appendChild(createPostCard(post, values[0], values[1]))
           })
         });
   } catch (error) {
