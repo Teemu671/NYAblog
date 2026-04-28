@@ -55,7 +55,8 @@ blogRouter.get("/uid/:uid",async(req,res) => {
     try {
         const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where author_id = $1 order by post_id desc"
         const result = await query(sql,[req.params.uid])
-        res.status(200).json(result.rows ? result.rows[0] : null)
+        const rows = result.rows ? result.rows : []
+        res.status(200).json(rows)
     } catch (error) {
         res.statusMessage = "Server error"
         res.status(500).json({error: "Server error"})
