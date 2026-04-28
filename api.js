@@ -12,27 +12,47 @@ const { authenticateToken } = require('./helpers/auth.js')
 //cookies
 const cookieParser = require('cookie-parser');
 
-const api = express();
+//file reading
+const fs = require('fs');
+const https = require('https');
 
-api.use(cors())
-api.use(express.json())
-api.use(express.urlencoded({extended: false}))
-api.use(fileUpload())
-api.use(express.static('public'))
-api.use(cookieParser())
+const GetCreds = () => {
+    try {
+        return {
+            key: fs.readFileSync(process.env.keyPath),
+            cert: fs.readFileSync(process.env.certPath),
+        };
+    } catch (error){
+        return null;
+    }
+}
+
+const app = express();
+
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(fileUpload())
+app.use(express.static('public'))
+app.use(cookieParser())
 
 //Routing
-api.use('/user',userRouter) 
+app.use('/user',userRouter) 
 
-api.use('/blog',blogRouter)
+app.use('/blog',blogRouter)
 
-api.use(authenticateToken);
+app.use(authenticateToken);
 
-api.use('/blog',blogPRouter) 
+app.use('/blog',blogPRouter) 
 
-api.use('/cdn', cdnPRouter)
+app.use('/cdn', cdnPRouter)
 
+const creds = GetCreds();
+
+
+const api = https.createServer(creds,app);
 module.exports = { api }
+
 
 
 

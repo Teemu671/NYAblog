@@ -4,7 +4,6 @@ require('dotenv').config({quiet: true})
 const express = require('express')
 
 //http / https
-const http = require('http');
 const https = require('https');
 
 
@@ -38,15 +37,10 @@ app.use(express.urlencoded({extended: false}))
 app.use('/',express.static('html',{extensions:['html']}));
 app.use('/cdn',express.static('files'));
 
-const httpServer = http.createServer(app);
-
 const creds = GetCreds();
 
-if (creds != null){
-    const httpsServer = https.createServer(creds,app);
-    module.exports = { httpServer, httpsServer }
-} else {
-    module.exports = { httpServer }
-}
+const httpsServer = https.createServer(creds,app);
+module.exports = {  httpsServer }
+
 
 
