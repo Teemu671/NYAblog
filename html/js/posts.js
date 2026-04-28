@@ -21,8 +21,8 @@ function formatPostTitle(text, id) {
 
 function formatPostSnippet(text) {
   if (!text) return '';
-  const snippet = text.trim().replace(/\s+/g, ' ').slice(0, 120);
-  return snippet.length < text.length ? snippet + '…' : snippet;
+  const plain = text.replace(/<[^>]*>/g, '').trim().replace(/\s+/g, ' ');
+  return plain.length > 120 ? plain.slice(0, 120) + '…' : plain;
 }
 
 function formatDate(value) {
@@ -41,7 +41,6 @@ function createPostCard(post, user, image) {
 
   
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
-  const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
   const author = escapeHtml( user.display_name || 'Unknown');
