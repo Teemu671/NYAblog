@@ -35,13 +35,13 @@ function formatDate(value) {
 }
 
 function createPostCard(post) {
-  const res = await loadUser(post.author_id);
+  const user = loadUser(post.author_id);
   
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
-  const author = escapeHtml( res.display_name || 'Unknown');
+  const author = escapeHtml( user.display_name || 'Unknown');
   const postId = post.post_id;
 
   const wrapper = document.createElement('div');
