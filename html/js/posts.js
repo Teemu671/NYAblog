@@ -35,11 +35,13 @@ function formatDate(value) {
 }
 
 function createPostCard(post) {
+  const res = loadUser(post.author_id);
+  
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
-  const author = escapeHtml(loadUser(post.author_id) || 'Unknown');
+  const author = escapeHtml( res.display_name || 'Unknown');
   const postId = post.post_id;
 
   const wrapper = document.createElement('div');
@@ -92,7 +94,7 @@ async function loadUser(uid) {
       return;
     }
 
-    console.log(user);
+    return user;
     
   } catch (error) {
  
