@@ -37,9 +37,9 @@ function formatDate(value) {
 }
 
 function createPostCard(post, user, image) {
-  
-  
 
+
+  
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
@@ -51,7 +51,7 @@ function createPostCard(post, user, image) {
   wrapper.className = 'card-wrapper';
   wrapper.innerHTML = `
     <a class="card" href="/blogPage?postId=${postId}">
-      <img src="${ image.filename ? 'https://cat0s.com/cdn/'+image.filename : 'https://placehold.co/400'}" class="card-img-top" alt="${tag}">
+      <img src="${ post.image_id ? 'https://cat0s.com/cdn/'+image.filename : 'https://placehold.co/400'}" class="card-img-top" alt="${tag}">
       <div class="card-body">
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>
@@ -85,15 +85,15 @@ async function loadPosts() {
           if (post.image_id != null) {
             const image = loadImage(post.image_id)
               image.then((image)=>{
+
                 return container.appendChild(createPostCard(post, user, image))
+
               })
             
           } else {
             return container.appendChild(createPostCard(post, user, null))
           }
         })
-        
-
       });
   } catch (error) {
     container.innerHTML = `<div class="empty-state">Unable to load posts: ${escapeHtml(error.message)}</div>`;
