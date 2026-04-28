@@ -77,30 +77,30 @@ userRouter.post("/register",async(req,res) => {
                   const hash = await argon2.hash(req.body.password);
                   const sql = "insert into users (username, display_name, email, password, role) values ($1,$1,$2,$3,$4) returning user_id"
                   const result = await query(sql,[req.body.username,req.body.email,hash,'user'])
-                  res.status(200).json({message: "Successfully account created"}) 
+                  return res.status(200).json({message: "Successfully account created"}) 
                 } catch (error) {
                   res.statusMessage = "Server error"
-                  res.status(500).json({error: "Server error"})
+                  return res.status(500).json({error: "Server error"})
                 }
               } else {
                 res.statusMessage = 'Invalid register'
-                res.status(401).json({error: 'User exists'})
+                return res.status(401).json({error: 'User exists'})
               }
             } else {
               res.statusMessage = 'Invalid register'
-              res.status(401).json({error: 'Invalid password'})
+              return res.status(401).json({error: 'Invalid password'})
             }
           } else {
             res.statusMessage = 'Invalid register'
-            res.status(401).json({error: 'Invalid email'})
+            return res.status(401).json({error: 'Invalid email'})
           }
         } else {
           res.statusMessage = 'Invalid register'
-          res.status(401).json({error: 'Invalid username'})
+          return res.status(401).json({error: 'Invalid username'})
         }
       } else {
         res.statusMessage = 'Bad request'
-        res.status(400).json({error: 'Invalid login'})
+        return res.status(400).json({error: 'Invalid login'})
       }
 })
 
@@ -110,10 +110,10 @@ userRouter.get("/uid/:uid",async(req,res) => {
         const sql = "select display_name, username, role, avatar_id from users where user_id = $1;"
         const result = await query(sql, [req.params.uid])
         const rows = result.rows ? result.rows[0] : []
-        res.status(200).json(rows)
+        return res.status(200).json(rows)
     } catch (error) {
         res.statusMessage = "Server error"
-        res.status(500).json({error: "Server error"})
+        return res.status(500).json({error: "Server error"})
     }
 })
 
