@@ -37,8 +37,6 @@ function formatDate(value) {
 }
 
 function createPostCard(post, user, image) {
-
-
   
   const title = escapeHtml(formatPostTitle(post.text, post.post_id));
   const tag = escapeHtml(post.tag || 'Blog');
@@ -88,12 +86,12 @@ async function loadPosts() {
                 return container.appendChild(createPostCard(post, user, image))
 
               })
-            
-          } else {
-            return container.appendChild(createPostCard(post, user, null))
-          }
-        })
-      });
+              
+            } else {
+              return container.appendChild(createPostCard(post, user, null))
+            }
+          })
+        });
   } catch (error) {
     container.innerHTML = `<div class="empty-state">Unable to load posts: ${escapeHtml(error.message)}</div>`;
   }
