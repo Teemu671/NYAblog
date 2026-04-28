@@ -1,4 +1,4 @@
-const API_BASE = "http://cat0s.com:3001";
+const API_BASE = "https://cat0s.com:3001";
 
 function escapeHtml(text) {
   return String(text || '')

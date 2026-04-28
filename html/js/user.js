@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://cat0s.com:3001"
+const BACKEND_URL = "https://cat0s.com:3001"
 
 class User {
   #id = undefined

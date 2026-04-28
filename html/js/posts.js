@@ -1,4 +1,4 @@
-const API_BASE = "http://cat0s.com:3001";
+const API_BASE = "https://cat0s.com:3001";
 const POSTS_ENDPOINT = `${API_BASE}/blog/all`;
 
 function escapeHtml(text) {
