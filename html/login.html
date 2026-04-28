@@ -77,5 +77,31 @@
       });
     });
   </script>
+  <script>
+  document.querySelector('form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('loginName').value;
+    const password = document.getElementById('loginPassword').value;
+
+    try {
+      const res = await fetch('/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        window.location.href = '/';
+      } else {
+        alert(data.error || 'Login failed');
+      }
+    } catch (err) {
+      alert('Something went wrong. Try again.');
+    }
+  });
+</script>
 </body>
 </html>

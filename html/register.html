@@ -51,5 +51,41 @@
             <p class="login-prompt">Already have an account? <a href="/login">Login here</a></p>
         </form>
     </div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    try {
+      const res = await fetch('/user/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('Account created! Please log in.');
+        window.location.href = '/login';
+      } else {
+        alert(data.error || 'Registration failed');
+      }
+    } catch (err) {
+      alert('Something went wrong. Try again.');
+    }
+  });
+</script>
+
 </body>
 </html>
