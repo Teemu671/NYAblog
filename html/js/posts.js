@@ -42,34 +42,31 @@ function createPostCard(post) {
   const image = loadImage(post.image_id)
   let username;
   let filename;
-  image.then(function(result) {
-    username = result;
-  });
-  user.then(function(result) {
-    filename = result;
-  });
-  
-  const title = escapeHtml(formatPostTitle(post.text, post.post_id));
-  const snippet = escapeHtml(formatPostSnippet(post.text));
-  const tag = escapeHtml(post.tag || 'Blog');
-  const date = escapeHtml(formatDate(post.created_at));
-  const author = escapeHtml( username || 'Unknown');
-  const postId = post.post_id;
+  image.then(function(username) {
+    user.then(function(filename) {
+      const title = escapeHtml(formatPostTitle(post.text, post.post_id));
+      const snippet = escapeHtml(formatPostSnippet(post.text));
+      const tag = escapeHtml(post.tag || 'Blog');
+      const date = escapeHtml(formatDate(post.created_at));
+      const author = escapeHtml( username || 'Unknown');
+      const postId = post.post_id;
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'card-wrapper';
-  wrapper.innerHTML = `
-    <a class="card" href="/blogPage?postId=${postId}">
-      <img src="${post.image_id ? 'https://cat0s.com/cdn/'+ filename : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
-      <div class="card-body">
-        <span class="post-tag">${tag}</span>
-        <h5 class="txtcolor">${title}</h5>
-        <p class="txtcolor">${snippet}</p>
-        <div class="post-meta">${author} ${date}</div>
-      </div>
-    </a>
-  `;
-  return wrapper;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'card-wrapper';
+      wrapper.innerHTML = `
+        <a class="card" href="/blogPage?postId=${postId}">
+          <img src="${post.image_id ? 'https://cat0s.com/cdn/'+ filename : 'https://placehold.co/600x400/EEE/31343C'}" class="card-img-top" alt="${tag}">
+          <div class="card-body">
+            <span class="post-tag">${tag}</span>
+            <h5 class="txtcolor">${title}</h5>
+            <p class="txtcolor">${snippet}</p>
+            <div class="post-meta">${author} ${date}</div>
+          </div>
+        </a>
+      `;
+      return wrapper;
+      });
+  });
 }
 
 async function loadPosts() {
