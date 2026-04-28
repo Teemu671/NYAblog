@@ -33,7 +33,7 @@ blogRouter.get("/all/:skip",async(req,res) => {
 blogRouter.get("/tag/:tag/:skip",async(req,res) => {
     try {
         const skip = Number(req.params.skip);
-        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where tag like concat($1,'%') order by post_id desc limit 5 offset $2;"
+        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where tag like concat($1::text,'%') order by post_id desc limit 5 offset $2;"
         const result = await query(sql,[(req.params.tag).toString(),skip])
         const rows = result.rows ? result.rows : []
         res.status(200).json(rows)
@@ -45,7 +45,7 @@ blogRouter.get("/tag/:tag/:skip",async(req,res) => {
 blogRouter.get("/id/:postID/:skip",async(req,res) => {
     try {
         const skip = Number(req.params.skip);
-        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where post_id like concat($1,'%') order by post_id desc limit 5 offset $2;"
+        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where post_id like concat($1::text,'%') order by post_id desc limit 5 offset $2;"
         const result = await query(sql,[req.params.postID,skip])
         const rows = result.rows ? result.rows : []
         res.status(200).json(rows)
