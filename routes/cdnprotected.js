@@ -22,10 +22,10 @@ cdnPRouter.post("/upload",async(req,res) => {
         uploadPath = __dirname + '/files/' + `/${req.user.id}/` + result.rows[0] ;
         sampleFile.mv(uploadPath, function(err) {
             if (err) return res.status(500).json({error: error})
-            res.send('File uploaded!');
+            res.status(200).json({message:"file uploaded!"})
         });
         
-        res.send('File uploaded!');
+        
     } catch (error) {
         res.statusMessage = error
         res.status(500).json({error: error})
