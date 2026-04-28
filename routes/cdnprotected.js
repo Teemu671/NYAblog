@@ -37,7 +37,7 @@ cdnPRouter.post("/upload",async(req,res) => {
 })
 cdnPRouter.get("/gallery",async(req,res) => {
     try {
-        const sql = "select image_id from images where uploader_id = $1"
+        const sql = "select image_id from images where uploader_id = $1 order by image_id desc"
         const result = await query(sql,[req.user.id])
         const rows = result.rows ? result.rows : []
         res.status(200).json(rows)
