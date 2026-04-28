@@ -41,7 +41,7 @@ function createPostCard(post) {
   const snippet = escapeHtml(formatPostSnippet(post.text));
   const tag = escapeHtml(post.tag || 'Blog');
   const date = escapeHtml(formatDate(post.created_at));
-  const author = escapeHtml( res.display_name || 'Unknown');
+  const author = escapeHtml( res.display_name );
   const postId = post.post_id;
 
   const wrapper = document.createElement('div');
