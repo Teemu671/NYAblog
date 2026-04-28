@@ -15,12 +15,13 @@ cdnPRouter.post("/upload",async(req,res) => {
 
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     sampleFile = req.files.sampleFile;
-    uploadPath = path.join(__dirname,'..',"files", (req.user.id).toString());
+    uploadPath = path.join(__dirname,'..',"temp" );
     //uploadPath = __dirname + '/files/' + sampleFile.name;
     try {
         const sql = "insert into images (path, uploader_id) values ($1,$2) returning image_id"
         const result = await query(sql,[uploadPath, req.user.id])
-        uploadPath = path.join(__dirname,'..',"files", (req.user.id).toString(), sampleFile.name) + result.rows[0].image_id;
+        uploadPath = path.join(__dirname,'..',"files", `${sampleFile.name}_${(req.user.id).toString()}_${result.rows[0].image_id}`) ;
+        const result2 = await query("update images set path = $1 where image_id = $2",[uploadPath, result.rows[0].image_id])
         sampleFile.mv(uploadPath, function(err) {
             if (err) return res.status(500).json({error: err.message})
             res.status(200).json({message:"file uploaded!"})
