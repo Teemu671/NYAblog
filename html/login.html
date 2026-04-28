@@ -21,54 +21,54 @@
       <button id="sidebar-toggle">☰</button>
     </div>
   </div>
+ <div class="main-wrapper">
+    <ul class="sidebar">
+      <li><a class="nav-link" href="/profile">Profile name</a></li>
+      <li><a class="nav-link" href="/writePage">Write a blog</a></li>
+      <li class="mobile-login"><a class="nav-link" href="/login">Login</a></li>
+      <li id="blog-list">My Blogs:</li>
+    </ul>
 
-  <ul class="sidebar">
-    <li><a class="nav-link" href="/profile">Profile name</a></li>
-    <li><a class="nav-link" href="/writePage">Write a blog</a></li>
-    <li class="mobile-login"><a class="nav-link" href="/login">Login</a></li>
-    <li id="blog-list">My Blogs:</li>
-  </ul>
+    <!-- Login content -->
+    <div class="login-content">
+      <h2 class="login-title">Login</h2>
+      <form>
+        <!-- Email input -->
+        <div class="form-outline mb15">
+          <input type="email" id="loginName" class="form-control" />
+          <label class="form-label" for="loginName">Email or username</label>
+        </div>
 
-  <!-- Login content -->
-  <div class="login-content">
-    <h2 class="login-title">Login</h2>
-    <form>
-      <!-- Email input -->
-      <div class="form-outline mb15">
-        <input type="email" id="loginName" class="form-control" />
-        <label class="form-label" for="loginName">Email or username</label>
-      </div>
+        <!-- Password input -->
+        <div class="form-outline mb15">
+          <input type="password" id="loginPassword" class="form-control" />
+          <label class="form-label" for="loginPassword">Password</label>
+        </div>
 
-      <!-- Password input -->
-      <div class="form-outline mb15">
-        <input type="password" id="loginPassword" class="form-control" />
-        <label class="form-label" for="loginPassword">Password</label>
-      </div>
+        <!-- 2 column grid layout -->
+        <div class="row mb15">
+          <div class="col">
+          <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+              <label class="form-check-label" for="loginCheck"> Remember me </label>
+            </div>
+          </div>
 
-      <!-- 2 column grid layout -->
-      <div class="row mb15">
-        <div class="col">
-        <!-- Checkbox -->
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
-            <label class="form-check-label" for="loginCheck"> Remember me </label>
+          <div class="col">
+          <!-- Simple link -->
+            <a href="#!">Forgot password?</a>
           </div>
         </div>
 
-        <div class="col">
-        <!-- Simple link -->
-          <a href="#!">Forgot password?</a>
-        </div>
-      </div>
+        <!-- Submit button -->
+        <button type="submit" class="btn-primary">Sign in</button>
 
-      <!-- Submit button -->
-      <button type="submit" class="btn-primary">Sign in</button>
-
-      <!-- Register buttons -->
-      <p class="register-prompt">Not a member? <a href="/register">Register</a></p>
-    </form>
-  </div>
-
+        <!-- Register buttons -->
+        <p class="register-prompt">Not a member? <a href="/register">Register</a></p>
+      </form>
+    </div>
+    </div>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
     $(document).ready(function() {
