@@ -78,7 +78,6 @@
     });
   </script>
   <script>
-  const user = new User()
   document.querySelector('form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -86,10 +85,11 @@
     const password = document.getElementById('loginPassword').value;
 
     user.login(email, password).then(user => {
-      window.location.href="index.html"
+      window.location.href="/"
     }).catch(error => {
-      alert(error)
-    })
+      alert(error || 'Login failed')
+    });
+
   });
 </script>
 <script src="js\user.js"></script>

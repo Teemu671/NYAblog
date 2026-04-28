@@ -32,12 +32,11 @@ class User {
   }
 
   async login(email,password) {
-    const data = JSON.stringify({email: email,password: password})
-    const response = await fetch(BACKEND_URL + '/user/login',{
-      method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: data
-    })
+    const response = await fetch('https://cat0s.com:3001/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
     if (response.ok === true) {
       const json = await response.json()
       this.#id = json.id
@@ -51,12 +50,11 @@ class User {
   }
 
   async register(username, email, password) {
-    const data = JSON.stringify({username: username, email: email, password: password})
-    const response = await fetch(BACKEND_URL + '/user/register',{
-      method: 'post',
-      headers: {'Content-Type':'application/json'},
-      body: data
-    })
+  const response = await fetch('https://cat0s.com:3001/user/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, email, password })
+    });
     if (response.ok === true) {
       const json = await response.json()
       return json.id
