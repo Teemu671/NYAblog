@@ -17,6 +17,7 @@ const query = (sql,values=[]) => {
       client.release()
       resolve(result)
     } catch (error) {
+      if (client) client.release()
       reject(error.message)
     }
   })
