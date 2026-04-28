@@ -20,7 +20,7 @@ const blogRouter = express.Router()
 
 blogRouter.get("/all",async(req,res) => {
     try {
-        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts order by post_id desc;"
+        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts order by post_id desc;"
         const result = await query(sql)
         const rows = result.rows ? result.rows : []
         res.status(200).json(rows)
@@ -31,7 +31,7 @@ blogRouter.get("/all",async(req,res) => {
 })
 blogRouter.get("/tag/:tag",async(req,res) => {
     try {
-        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where tag like concat($1::text,'%') order by post_id desc;"
+        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where tag like concat($1::text,'%') order by post_id desc;"
         const result = await query(sql,[(req.params.tag).toString()])
         const rows = result.rows ? result.rows : []
         res.status(200).json(rows)
@@ -43,7 +43,7 @@ blogRouter.get("/tag/:tag",async(req,res) => {
 blogRouter.get("/id/:postID",async(req,res) => {
     try {
         const skip = Number(req.params.skip);
-        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where post_id = $1"
+        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where post_id = $1"
         const result = await query(sql,[req.params.postID])
         res.status(200).json(result.rows ? result.rows[0] : null)
     } catch (error) {
@@ -53,7 +53,6 @@ blogRouter.get("/id/:postID",async(req,res) => {
 })
 blogRouter.get("/uid/:uid",async(req,res) => {
     try {
-        const skip = Number(req.params.skip);
         const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where author_id = $1 order by post_id desc"
         const result = await query(sql,[req.params.uid])
         res.status(200).json(result.rows ? result.rows[0] : null)
