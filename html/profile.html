@@ -73,15 +73,6 @@
       });
     });
   </script>
-  <script type="module">
-    import { User } from './user.js'
-    const currentUser = new User()
-    const params = new URLSearchParams(window.location.search)
-    const profileId = params.get('id')
-    if (Number(currentUser.id) === Number(profileId)) {
-      document.getElementById('changePfpBtn').style.display = 'block'
-    }
-    
-  </script>
+  <script type="module" src="js/user.js"></script>
   </body>
 </html>
