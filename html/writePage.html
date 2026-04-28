@@ -96,7 +96,7 @@
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${token}`
                         },
-                        body: JSON.stringify({ message: text, title, tag, image: uploadedImageId })
+                        body: JSON.stringify({ message: text, title: title, tag: tag, image: uploadedImageId })
                     });
 
                     if (!response.ok) {
