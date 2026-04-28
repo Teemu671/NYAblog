@@ -25,7 +25,7 @@ cdnPRouter.post("/upload",async(req,res) => {
             res.send('File uploaded!');
         });
         
-        
+        res.send('File uploaded!');
     } catch (error) {
         res.statusMessage = error
         res.status(500).json({error: error})
