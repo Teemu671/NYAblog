@@ -77,18 +77,14 @@ async function loadPosts() {
     container.innerHTML = '';
     posts.forEach(post => 
       {
+        const image = loadImage(post.image_id)
         const user = loadUser(post.author_id)
-        user.then((user)=>{
-          if (post.image_id != null) {
-            const image = loadImage(post.image_id)
-              image.then((image)=>{
-
-                return container.appendChild(createPostCard(post, user, image))
-
-              })
-              
+        Promise.all([user,image]).then((values)=>{
+          
+            if (post.image_id != null) {
+              return container.appendChild(createPostCard(post, values[0], values[1]))
             } else {
-              return container.appendChild(createPostCard(post, user, null))
+              return container.appendChild(createPostCard(post, values[0], null))
             }
           })
         });
