@@ -26,7 +26,6 @@ api.use('/user',userRouter)
 
 api.use('/blog',blogRouter)
 
-
 api.use(authenticateToken);
 
 api.use('/blog',blogPRouter) 

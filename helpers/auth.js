@@ -10,10 +10,10 @@ function authenticateToken(req, res, next) {
         token = req.cookies.NYAblog;
     }
     
-    if (token == null) return res.status(401).redirect("login")
+    if (token == null) return res.status(401).json({message:"Auth failed"});
     jwt.verify(token, process.env.SECRET_TOKEN, function(err, user) {
     if (err) {
-        return res.status(403).redirect("login")
+        return res.status(403).json({message:"Auth failed"});
     }
     req.user = user;
     next();
