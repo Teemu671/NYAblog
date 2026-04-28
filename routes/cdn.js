@@ -1,7 +1,5 @@
 const express = require('express')
-const fileUpload = require('express-fileupload');
 const { query } = require('../helpers/db.js')
-const path = require('path')
 
 const cdnRouter = express.Router()
 

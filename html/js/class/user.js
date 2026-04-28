@@ -4,7 +4,6 @@ class User {
   #id = undefined
   #email = undefined
   #token = undefined
-
   constructor() {
     const userFromStorage = sessionStorage.getItem('user')
     if (userFromStorage) {
@@ -13,10 +12,6 @@ class User {
       this.#email = userObject.email
       this.#token = userObject.token
     }
-  }
-
-  get username() {
-    return this.#username
   }
 
   get id() {
