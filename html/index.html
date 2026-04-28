@@ -82,7 +82,11 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', loadMyBlogs);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadMyBlogs);
+        } else {
+            loadMyBlogs();
+        }
     </script>
 
   </body>
