@@ -15,6 +15,10 @@ class User {
     }
   }
 
+  get username() {
+    return this.#username
+  }
+
   get id() {
     return this.#id
   }
@@ -62,6 +66,19 @@ class User {
       throw response.statusText
     }
   }
+  // async changeDisplayName(username) {
+  // const response = await fetch('https://cat0s.com:3001/user/rename', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ username })
+  //   });
+  //   if (response.ok === true) {
+  //     const json = await response.json()
+  //     return json.id
+  //   } else {
+  //     throw response.statusText
+  //   }
+  // }
 
   logout() {
     this.#id = undefined

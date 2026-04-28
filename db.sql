@@ -6,12 +6,16 @@ use NYAdb;
 
 create table "users" (
     "user_id" serial primary key,
+    "avatar_id" int,
     "email" varchar(100) unique not null,
     "display_name", varchar(26) not null,
     "username" varchar(26) unique not null,
     "password" varchar(255) not null,
     "role" varchar(16) not null,
     "created_at" timestamp not null default NOW(),
+    CONSTRAINT fk_image FOREIGN KEY (avatar_id)
+    REFERENCES images(image_id)
+    ON DELETE SET NULL
 )
 
 create table "posts" (
