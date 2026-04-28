@@ -28,7 +28,7 @@ api.use('/blog',blogRouter)
 
 api.use(authenticateToken);
 
-api.use('/pblog',blogPRouter) 
+api.use('/blog',blogPRouter) 
 
 api.use('/cdn', cdnPRouter)
 
