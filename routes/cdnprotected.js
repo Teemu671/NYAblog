@@ -21,7 +21,7 @@ cdnPRouter.post("/upload",async(req,res) => {
         const result = await query(sql,[uploadPath, req.user.id])
         uploadPath = __dirname + '/files/' + `/${req.user.id}/` + result.rows[0] ;
         sampleFile.mv(uploadPath, function(err) {
-            if (err) return res.status(500).json({error: error})
+            if (err) return res.status(500).json({error: err})
             res.status(200).json({message:"file uploaded!"})
         });
         
