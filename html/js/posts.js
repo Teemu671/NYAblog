@@ -36,7 +36,7 @@ function formatDate(value) {
   });
 }
 
-function createPostCard(post) {
+async function createPostCard(post) {
   const user = await loadUser(post.author_id)
   const image = await loadImage(post.image_id)
 
