@@ -78,29 +78,18 @@
     });
   </script>
   <script>
+  const user = new User()
   document.querySelector('form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const email = document.getElementById('loginName').value;
     const password = document.getElementById('loginPassword').value;
 
-    try {
-      const res = await fetch('https://cat0s.com:3001/user/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        window.location.href = '/';
-      } else {
-        alert(data.error || 'Login failed');
-      }
-    } catch (err) {
-      alert('Something went wrong. Try again.');
-    }
+    user.login(email, password).then(user => {
+      window.location.href="index.html"
+    }).catch(error => {
+      alert(error)
+    })
   });
 </script>
 <script src="js\user.js"></script>
