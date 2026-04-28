@@ -54,12 +54,11 @@ async function loadPost() {
     const author = post.author_name || post.author_id || 'Author';
     const date = formatDate(post.created_at);
     const tag = post.tag ? escapeHtml(post.tag) : 'Blog';
-    const content = escapeHtml(post.text || '');
 
     titleElement.textContent = title;
     authorElement.textContent = author;
     metaElement.textContent = `${tag} • ${date}`;
-    bodyElement.innerHTML = `<p>${content.replace(/\n/g, '<br>')}</p>`;
+    bodyElement.innerHTML = post.text || '';
   } catch (error) {
     titleElement.textContent = 'Error loading post';
     bodyElement.innerHTML = `<p>${escapeHtml(error.message)}</p>`;
