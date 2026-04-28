@@ -10,9 +10,8 @@ const DBpool = new Pool ({
 })
 const query = (sql,values=[]) => {
   return new Promise(async(resolve,reject)=> {
+    const client = await DBpool.connect()
     try {
-      
-      const client = await DBpool.connect()
       const result = await client.query(sql,values)
       client.release()
       resolve(result)
