@@ -47,10 +47,37 @@ blogPRouter.post("/comment/:postID",async(req,res) => {
 })
 blogPRouter.patch("/edit/:postID",async(req,res) => {
     //parent_id = postID, image_id from client, author_id from auth, text from client, tag from client
-    
+    try {
+        const check = await query("select uploader_id from images where image_id = $1",[req.body.image])
+        if (check.rowCount === 1 || req.body.image == null) {
+            const sql = "update posts set image_id = $1, text = $2, tag = $3 where author_id = $4 and post_id = $5 returning post_id"
+            const result = await query(sql,[req.body.image,req.body.message,req.body.tag,req.user.id,req.params.postID])
+            if (result.rows[0]){
+                return res.status(200).json({message: "Successfully edited"}) 
+            }
+            return res.status(200).json({message: "Nothing changed"}) 
+        } else {
+            return res.status(400).json({message: "Image error"}) 
+        }
+    } catch (error) {
+        res.statusMessage = "Server error"
+        res.status(500).json({error: "Server error"})
+    }
 })
 blogPRouter.delete("/delete/:postID",async(req,res) => {
     //parent_id = postID
+    try {
+        const sql = "delete from posts where author_id = $1 and post_id = $2 returning post_id"
+        const result = await query(sql,[req.user.id,req.params.postID])
+        if (result.rows[0]){
+            return res.status(200).json({message: "Successfully edited"}) 
+        }
+        return res.status(200).json({message: "Nothing changed"}) 
+
+    } catch (error) {
+        res.statusMessage = "Server error"
+        res.status(500).json({error: "Server error"})
+    }
 })
 
 module.exports = { blogPRouter }

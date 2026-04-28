@@ -226,39 +226,6 @@ html, body {
     transition-duration: 0.5s;
 }
 
-    .post-controls {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-        align-items: center;
-        margin-top: 1rem;
-    }
-
-    .post-controls input {
-        flex: 1;
-        min-width: 10rem;
-        padding: 0.85rem 1rem;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 0.75rem;
-        font-size: 1rem;
-    }
-
-    .post-controls button {
-        padding: 0.85rem 1.25rem;
-        border: none;
-        background-color: var(--main-color);
-        color: white;
-        border-radius: 0.75rem;
-        cursor: pointer;
-        white-space: nowrap;
-    }
-
-    .post-controls button:hover {
-        background-color: var(--btn-hover);
-    }
-    border-bottom: 1px solid;
-}
-
 .username-container {
     display: flex;
     flex-direction: row;
@@ -325,6 +292,37 @@ html, body {
     width: 95%;
     border-radius: 10px;
 }
+
+.post-controls {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .post-controls input {
+        flex: 1;
+        min-width: 10rem;
+        padding: 0.85rem 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .post-controls button {
+        padding: 0.85rem 1.25rem;
+        border: none;
+        background-color: var(--main-color);
+        color: white;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .post-controls button:hover {
+        background-color: var(--btn-hover);
+    }
 
 /* ----------------------------- Mobile ----------------------------- */
 .mobile-sidebar {

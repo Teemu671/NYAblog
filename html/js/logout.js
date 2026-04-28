@@ -9,5 +9,5 @@ const logout = () => {
     sessionStorage.clear();
 
     // Redirect to login page
-    //router.push("/login",{"message":"Invalid login."})
+    router.push("/login",{"message":"Invalid login."})
 };
