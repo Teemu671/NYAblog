@@ -28,6 +28,7 @@ function getPostId() {
 async function loadPost() {
   const postId = getPostId();
   const banner = $('.blog-banner')[0];
+  const avatarElement = document.getElementById('post-avatar')
   const authorElement = document.getElementById('post-author');
   const titleElement = document.getElementById('post-title');
   const metaElement = document.getElementById('post-meta');
@@ -73,6 +74,11 @@ async function loadPost() {
     const date = formatDate(post.updated_at);
     const tag = post.tag ? escapeHtml(post.tag) : 'Blog';
     
+    const avatarRes = await fetch("https://cat0s.com:3001/cdn/image/"+ user.avatar_id);
+      
+    const avatar = await avatarRes.json();
+
+    avatarElement.href = `https://cat0s.com/cdn/${avatar.filename}`
     authorElement.textContent = author
     authorElement.href = 'https://cat0s.com/profile?uid='+post.author_id
     titleElement.textContent = title;
