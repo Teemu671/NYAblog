@@ -23,7 +23,7 @@
     </div>
     <div class="main-wrapper">
         <ul class="sidebar">
-            <li><a class="nav-link" href="/profile">Profile name</a></li>
+            <li><a class="nav-link" href="/profile">Your profile</a></li>
             <li><a class="nav-link" href="/writePage">Write a blog</a></li>
             <li class="mobile-login"><a class="nav-link" href="/login">Login</a></li>
         </ul>
@@ -70,9 +70,7 @@
     const res = await fetch(`${API_BASE}/user/uid/${user.id}`);
     const profile = await res.json();
 
-    // Set username in sidebar and banner
-    document.querySelectorAll('.profile-username h1, .nav-link[href="/profile"]')
-      .forEach(el => el.textContent = profile.display_name || profile.username);
+    
 
     // Set avatar
     if (profile.avatar_id) {
