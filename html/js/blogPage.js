@@ -194,13 +194,24 @@ async function loadPost() {
 //           
 //       </div>`
 
+      const userRes = await fetch(`${API_BASE}/user/uid/${post.author_id}`);
+      if (!userRes.ok) throw new Error(userRes.statusText);
+      const user = await userRes.json();
+
+      const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ post.image_id);
+        
+      const image = await imageRes.json();
+
+      const author = escapeHtml( user.display_name || 'Unknown');
+      const date = formatDate(post.updated_at);
+
       wrapper.innerHTML = `
           <div class="blog-text">
           <img src="${post.image_id
               ? `https://cat0s.com/cdn/${image.filename}`
               : 'https://cat0s.com/cdn/placeholder.png'}" class="profile-pic">
           <div class="card-body">
-              <div class="post-meta">${author_id} • ${date}</div>
+              <div class="post-meta">${author} • ${date}</div>
           </div>
           </div>`;
       commentsContainer.appendChild(wrapper);
