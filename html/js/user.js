@@ -1,7 +1,7 @@
 import { User } from './class/user.js'
 
 const user = new User()
-$(document).ready(function() {
+
 if (user.isLoggedIn) {
   document.querySelectorAll('.nav-link[href="/login"], .mobile-login').forEach(el => {
     el.style.display = 'none';
@@ -14,4 +14,3 @@ if (user.isLoggedIn) {
     el.style.display = 'none';
   });
 }
-});
