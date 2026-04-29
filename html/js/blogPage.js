@@ -53,12 +53,12 @@ async function loadPost() {
       return;
     }
 
-    const userRes = await fetch(`${API_BASE}/blog/id/${post.author_id}`);
+    const userRes = await fetch(`${API_BASE}/user/uid/${post.author_id}`);
     if (!userRes.ok) throw new Error(userRes.statusText);
     const user = await userRes.json();
 
     const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ post.image_id);
-                    
+      
     const image = await imageRes.json();
     
 
