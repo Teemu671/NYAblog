@@ -123,7 +123,7 @@
     const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ post.image_id);
     const image = await imageRes.json();
 
-      const title = escapeHtml(post.title);
+      const title = escapeHtml(post.title || `Post #${post.post_id}`);
       const wrapper = document.createElement('div');
       wrapper.className = 'card-wrapper';
       wrapper.innerHTML = `
