@@ -88,6 +88,7 @@
     const grid = document.getElementById('my-post-grid');
     const res = await fetch(`${API_BASE}/blog/uid/${user.id}`);
     const posts = await res.json();
+    
 
     if (!posts.length) {
       grid.innerHTML = '<p style="padding:1rem;">No posts yet.</p>';
@@ -95,14 +96,20 @@
     }
 
     grid.innerHTML = '';
-    posts.forEach(post => {
+    posts.forEach(async (post) => {
+        
+    
+    
+    const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ post.image_id);
+    const image = await imageRes.json();
+
       const title = escapeHtml(post.title || `Post #${post.post_id}`);
       const wrapper = document.createElement('div');
       wrapper.className = 'card-wrapper';
       wrapper.innerHTML = `
         <a class="card" href="/blogPage?postId=${post.post_id}">
           <img src="${post.image_id
-            ? `${API_BASE}/files/${post.image_id}`
+            ? `https://cat0s.com/files/${image.filename}`
             : 'https://placehold.co/400'}" class="card-img-top">
           <div class="card-body">
             <span class="post-tag">${escapeHtml(post.tag || 'Blog')}</span>
