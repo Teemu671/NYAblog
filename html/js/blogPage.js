@@ -61,7 +61,7 @@ async function loadPost() {
     const image = await imageRes.json();
     
 
-    banner.style.backgroundImage = `url(https://cat0s.com/cdn/${image.filename})`
+    banner.style.backgroundImage = `url(${post.image_id ? `https://cat0s.com/cdn/${image.filename}` : 'https://cat0s.com/cdn/placeholder.png'})`
     banner.style.backgroundRepeat = 'no-repeat'
     banner.style.backgroundSize = 'contain, cover'
     banner.style.backgroundPosition = 'center'
