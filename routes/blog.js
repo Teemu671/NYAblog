@@ -53,7 +53,7 @@ blogRouter.get("/id/:postID",async(req,res) => {
 })
 blogRouter.get("/uid/:uid",async(req,res) => {
     try {
-        const sql = "select post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where author_id = $1 order by post_id desc"
+        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where author_id = $1 order by post_id desc"
         const result = await query(sql,[req.params.uid])
         const rows = result.rows ? result.rows : []
         return res.status(200).json(rows)
