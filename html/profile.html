@@ -130,8 +130,13 @@
     grid.innerHTML = '';
     posts.forEach(async (post) => {
         
+    const userRes = await fetch(`${API_BASE}/user/uid/${post.author_id}`);
+    if (!userRes.ok) throw new Error(userRes.statusText);
+    const user = await userRes.json();
     
-    
+    const author = escapeHtml( user.display_name || 'Unknown');
+    const date = formatDate(post.updated_at);
+
     const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ post.image_id);
     const image = await imageRes.json();
 
@@ -146,6 +151,7 @@
           <div class="card-body">
             <span class="post-tag">${escapeHtml(post.tag || 'Blog')}</span>
             <h5 class="txtcolor">${title}</h5>
+            <div class="post-meta">${author} • ${date}</div>
           </div>
         </a>`;
       grid.appendChild(wrapper);
