@@ -16,6 +16,7 @@
         </div>
         <div class="navItem desktop-only">
             <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" id="logout-btn" href="#" onclick="logout()">Logout</a>
         </div>
         <div class="navItem mobile-sidebar">
             <button id="sidebar-toggle">☰</button>
@@ -28,7 +29,6 @@
             <li><a class="nav-link" href="/profile">Your profile</a></li>
             <li><a class="nav-link" href="/writePage">Write a blog</a></li>
             <li class="mobile-login"><a class="nav-link" href="/login">Login</a></li>
-            <li id="blog-list">My Blogs:</li>
         </ul>
 
         <div class="content-area">
@@ -47,7 +47,7 @@
 
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
      <script src="js/posts.js"></script>
-
+    <script src="js/logout.js"></script>
     <script>
         $(document).ready(function() {
             $('#sidebar-toggle').click(function() {

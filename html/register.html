@@ -16,6 +16,7 @@
         </div>
         <div class="navItem desktop-only">
             <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" id="logout-btn" href="#" onclick="logout()">Logout</a>
         </div>
         <div class="navItem mobile-sidebar">
             <button id="sidebar-toggle">☰</button>
@@ -57,6 +58,7 @@
             <p class="login-prompt">Already have an account? <a href="/login">Login here</a></p>
         </form>
     </div>
+    <script src="js/logout.js"></script>
 <script type="module" src="js/user.js"></script>
 <script type="module">
   import { User } from "./js/class/user.js";

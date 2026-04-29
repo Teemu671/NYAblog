@@ -16,6 +16,7 @@
         </div>
         <div class="navItem desktop-only">
             <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" id="logout-btn" href="#" onclick="logout()">Logout</a>
         </div>
         <div class="navItem mobile-sidebar">
             <button id="sidebar-toggle">☰</button>
@@ -54,7 +55,7 @@
 
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
      <script src="js/blogPage.js"></script>
-
+    <script src="js/logout.js"></script>
     <script>
         $(document).ready(function() {
             $('#sidebar-toggle').click(function() {
