@@ -415,6 +415,7 @@ html, body {
     .blog-text {
         width: 100%;
         padding: 1rem;
+        gap: 0rem;
     }
     .welcome {
         padding: 1rem;
