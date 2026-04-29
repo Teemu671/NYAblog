@@ -199,12 +199,9 @@ async function loadPost() {
       wrapper.innerHTML = `
         <div class="card-body">
           <div class="blog-text">
-          <img src="${post.image_id
-              ? `https://cat0s.com/cdn/${image.filename}`
-              : 'https://cat0s.com/cdn/placeholder.png'}" class="card-img-top">
-              ${post.text}
-         
-              <div class="post-meta">${author} • ${date}</div>
+          ${post.image_id ? `<img src="https://cat0s.com/cdn/${image.filename}class="card-img-top">` : `<img src='https://cat0s.com/cdn/placeholder.png' class="card-img-top">`}
+          ${post.text}
+          <div class="post-meta">${author} • ${date}</div>
           </div>
           </div>`;
       commentsContainer.appendChild(wrapper);
