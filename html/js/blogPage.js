@@ -10,9 +10,7 @@ function escapeHtml(text) {
 }
 
 
-        // `<div class="blog-text">
-        //     <div class="post-meta">${author} • ${date}</div>
-        // </div>`
+        
         async function loadComments(postId) {
             
             const grid = document.getElementById('my-post-grid');
@@ -31,6 +29,11 @@ function escapeHtml(text) {
               const title = escapeHtml(post.title || `Post #${post.post_id}`);
               const wrapper = document.createElement('div');
               wrapper.className = 'card-wrapper';
+
+              // `<div class="blog-text">
+              //     <div class="post-meta">${author} • ${date}</div>
+              // </div>`
+
               wrapper.innerHTML = `
                   <a class="card" href="/blogPage?postId=${post.post_id}">
                   <img src="${post.image_id
