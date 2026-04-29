@@ -35,9 +35,11 @@ html, body {
     z-index: 1000;
 }
 
-.navlink{
+.nav-link{
     text-decoration: none;
     color: var(--text);
+    font-size: larger;
+    font-weight:600;
 }
 
 .navItem {
