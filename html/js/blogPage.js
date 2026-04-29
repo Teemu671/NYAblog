@@ -48,7 +48,7 @@ $(document).ready(function() {
             }
 
             alert('Post published successfully.');
-            window.location.href = '/';
+            window.location.href = '/blogPage?postId='+postId;
         } catch (error) {
             alert('Failed to publish post: ' + error.message);
         }
