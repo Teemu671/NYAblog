@@ -78,7 +78,7 @@ async function loadPost() {
       
     const avatar = await avatarRes.json();
 
-    avatarElement.href = `https://cat0s.com/cdn/${avatar.filename}`
+    avatarElement.src = `https://cat0s.com/cdn/${avatar.filename}`
     authorElement.textContent = author
     authorElement.href = 'https://cat0s.com/profile?uid='+post.author_id
     titleElement.textContent = title;
