@@ -109,7 +109,7 @@
       wrapper.innerHTML = `
         <a class="card" href="/blogPage?postId=${post.post_id}">
           <img src="${post.image_id
-            ? `https://cat0s.com/files/${image.filename}`
+            ? `https://cat0s.com/cdn/${image.filename}`
             : 'https://placehold.co/400'}" class="card-img-top">
           <div class="card-body">
             <span class="post-tag">${escapeHtml(post.tag || 'Blog')}</span>
