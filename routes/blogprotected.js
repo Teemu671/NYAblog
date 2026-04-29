@@ -35,7 +35,7 @@ blogPRouter.post("/comment/:postID",async(req,res) => {
         if (check.rowCount === 1 || req.body.image == null) {
             const check2 = await query("select tag from posts where post_id = $1",[req.params.postID])
             const sql = "insert into posts (image_id, parent_id, author_id, text, tag) values ($1,$2,$3,$4,$5) returning post_id"
-            const result = await query(sql,[req.body.image,req.params.postID,req.user.id,req.body.message,check2.row[0]])
+            const result = await query(sql,[req.body.image,req.params.postID,req.user.id,req.body.message,check2.rows[0].tag])
             return res.status(200).json({message: "Successfully posted"}) 
         } else {
             return res.status(400).json({message: "Image error"}) 
