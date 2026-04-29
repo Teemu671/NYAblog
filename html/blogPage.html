@@ -48,7 +48,7 @@
                         <p> </p>
                     </div>
                 </div>
-                    <div class="blog-text-container">
+                    <div class="blog-text-container" id="comments-container">
                         <div class="blog-text">
                             <div id="editor"></div>
                             <form id="post-form">
@@ -59,8 +59,9 @@
                             </form>
                         </div>
                         <div class="blog-text">
-                            <p>comment</p>
+                            <h1>Comments</h1>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -79,7 +80,7 @@
     <script>
         $(document).ready(function() {
             $('#editor').summernote({
-                placeholder: 'Write your blog...',
+                placeholder: 'Write your comment...',
                 height: 300
             });
             $('#sidebar-toggle').click(function() {
@@ -88,8 +89,5 @@
         });
     </script>
     <script type="module" src="js/user.js"></script>
-    <script type="module">
-
-    </script>
   </body>
 </html>
