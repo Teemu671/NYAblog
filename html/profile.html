@@ -32,7 +32,7 @@
             <div class="content-area">
                 <div class="profile-banner">
                     <div class="username-container">
-                        <div class="profile-pic"><img src="https://placehold.co/100x100"></div>
+                        <div class="profile-pic"><img src=''></div>
                         <div class="profile-username"> <h1>Username</h1> </div>
                         <button class="changePfpBtn" id="changePfpBtn">Change Profile Picture</button>
                         <input type="file" id="pfp-input" accept="image/*" style="display:none">
@@ -110,7 +110,7 @@
         <a class="card" href="/blogPage?postId=${post.post_id}">
           <img src="${post.image_id
             ? `https://cat0s.com/cdn/${image.filename}`
-            : 'https://placehold.co/400'}" class="card-img-top">
+            : ''}" class="card-img-top">
           <div class="card-body">
             <span class="post-tag">${escapeHtml(post.tag || 'Blog')}</span>
             <h5 class="txtcolor">${title}</h5>
