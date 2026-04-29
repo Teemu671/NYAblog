@@ -136,7 +136,7 @@
                         body: formData
                     });
                     const upload = await uploadRes.json();
-
+                    uploadedImageId = upload.image_id;
 
                     const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ upload.image_id);
                     
