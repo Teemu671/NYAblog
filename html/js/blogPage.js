@@ -11,42 +11,42 @@ function escapeHtml(text) {
 
 
         
-        async function loadComments(postId) {
+        // async function loadComments(postId) {
             
-            const grid = document.getElementById('my-post-grid');
-            const res = await fetch(`${API_BASE}/blog/comments/${postId}`);
-            const comments = await res.json();
+        //     const grid = document.getElementById('my-post-grid');
+        //     const res = await fetch(`${API_BASE}/blog/comments/${postId}`);
+        //     const comments = await res.json();
             
 
-            if (!posts.length) {
-            grid.innerHTML = '<p style="padding:1rem;">No comments yet.</p>';
-            return;
-            }
+        //     if (!posts.length) {
+        //     grid.innerHTML = '<p style="padding:1rem;">No comments yet.</p>';
+        //     return;
+        //     }
 
-            grid.innerHTML = '';
-            posts.forEach(async (post) => {
+        //     grid.innerHTML = '';
+        //     posts.forEach(async (post) => {
               
-              const title = escapeHtml(post.title || `Post #${post.post_id}`);
-              const wrapper = document.createElement('div');
-              wrapper.className = 'card-wrapper';
+        //       const title = escapeHtml(post.title || `Post #${post.post_id}`);
+        //       const wrapper = document.createElement('div');
+        //       wrapper.className = 'card-wrapper';
 
-              // `<div class="blog-text">
-              //     <div class="post-meta">${author} • ${date}</div>
-              // </div>`
+        // //       `<div class="blog-text">
+        // //           <div class="post-meta">${author} • ${date}</div>
+        // //       </div>`
 
-              wrapper.innerHTML = `
-                  <a class="card" href="/blogPage?postId=${post.post_id}">
-                  <img src="${post.image_id
-                      ? `https://cat0s.com/cdn/${image.filename}`
-                      : 'https://cat0s.com/cdn/placeholder.png'}" class="card-img-top">
-                  <div class="card-body">
-                      <span class="post-tag">${escapeHtml(post.tag || 'Blog')}</span>
-                      <h5 class="txtcolor">${title}</h5>
-                  </div>
-                  </a>`;
-              grid.appendChild(wrapper);
-            });
-        }
+        //       wrapper.innerHTML = `
+        //           <a class="card" href="/blogPage?postId=${post.post_id}">
+        //           <img src="${post.image_id
+        //               ? `https://cat0s.com/cdn/${image.filename}`
+        //               : 'https://cat0s.com/cdn/placeholder.png'}" class="card-img-top">
+        //           <div class="card-body">
+        //               <span class="post-tag">${escapeHtml(post.tag || 'Blog')}</span>
+        //               <h5 class="txtcolor">${title}</h5>
+        //           </div>
+        //           </a>`;
+        //       grid.appendChild(wrapper);
+        //     });
+        // }
 
 function formatDate(value) {
   if (!value) return '';
