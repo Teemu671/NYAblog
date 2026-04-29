@@ -174,9 +174,9 @@
 
   // ── Sidebar toggle ─────────────────────────────────────────────────
   document.getElementById('sidebar-toggle').addEventListener('click', () => {
-    document.querySelector('.sidebar').style.display =
-      document.querySelector('.sidebar').style.display === 'none' ? '' : 'none';
-  });
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.style.display = sidebar.offsetParent !== null ? 'none' : '';
+});
 
   loadProfile();
   loadMyPosts();
