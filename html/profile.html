@@ -16,6 +16,7 @@
         </div>
         <div class="navItem desktop-only">
             <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" id="logout-btn" href="#" onclick="logout()">Logout</a>
         </div>
         <div class="navItem mobile-sidebar">
             <button id="sidebar-toggle">☰</button>
@@ -48,12 +49,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
  -->
+    <script src="js/logout.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="module">
   import { User } from './js/class/user.js';
 
   const API_BASE = "https://cat0s.com:3001";
   const user = new User();
+  const uid = getUserId()
+  let profileID;
+  if (uid){
+    profileID = uid
+  } else {
+    profileID = user.id
+  }
 
   function escapeHtml(t) {
     return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
@@ -61,13 +70,19 @@
   }
 
   // ── Load profile info (username + avatar) ──────────────────────────
+
+    function getUserId() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('uid');
+    }
+
   async function loadProfile() {
     if (!user.isLoggedIn) {
       window.location.href = '/login';
       return;
     }
 
-    const res = await fetch(`${API_BASE}/user/uid/${user.id}`);
+    const res = await fetch(`${API_BASE}/user/uid/${profileID}`);
     const profile = await res.json();
 
     // Set username in sidebar and banner
@@ -86,7 +101,7 @@
   // ── Load this user's posts ─────────────────────────────────────────
   async function loadMyPosts() {
     const grid = document.getElementById('my-post-grid');
-    const res = await fetch(`${API_BASE}/blog/uid/${user.id}`);
+    const res = await fetch(`${API_BASE}/blog/uid/${profileID}`);
     const posts = await res.json();
     
 
