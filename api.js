@@ -37,9 +37,6 @@ app.use(fileUpload())
 
 app.use(cookieParser())
 
-const path = require('path');
-app.use('/files', express.static(path.join(__dirname, 'files')));
-
 //Routing
 app.use('/user',userRouter) 
 
