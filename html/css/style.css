@@ -300,10 +300,9 @@ html, body {
 
 .blog-text-container {
     display: flex;
-    justify-content: start;
-    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     height: 100%;
-    width: 100%;
     padding-top: 0.5rem;
 }
 
