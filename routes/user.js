@@ -2,7 +2,9 @@ const express = require('express')
 const { query } = require('../helpers/db.js')
 const argon2 = require('argon2')
 const jwt = require('jsonwebtoken')
+const { authenticateToken } = require('../helpers/auth.js');
 require('dotenv').config({quiet: true})
+
 
 const userRouter = express.Router()
 
@@ -116,5 +118,26 @@ userRouter.get("/uid/:uid",async(req,res) => {
         return res.status(500).json({error: "Server error"})
     }
 })
+
+userRouter.patch("/avatar", authenticateToken, async (req, res) => {
+  try {
+    const { image_id } = req.body;
+
+    const check = await query(
+      "SELECT uploader_id FROM images WHERE image_id = $1",
+      [image_id]
+    );
+    if (check.rowCount === 0 || check.rows[0].uploader_id !== req.user.id) {
+      return res.status(403).json({ error: "Image not yours" });
+    }
+    await query(
+      "UPDATE users SET avatar_id = $1 WHERE user_id = $2",
+      [image_id, req.user.id]
+    );
+    return res.status(200).json({ message: "Avatar updated" });
+  } catch (error) {
+    return res.status(500).json({ error: "Server error" });
+  }
+});
 
 module.exports = { userRouter }
