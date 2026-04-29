@@ -46,8 +46,20 @@
                         <p> </p>
                     </div>
                 </div>
-                    <div class="blog-text">
-                        <div id="editor"></div>
+                    <div class="blog-text-container">
+                        <div class="blog-text">
+                            <div id="editor"></div>
+                            <form id="post-form">
+                                <div class="post-controls">
+                                    <input type="text" name="title" placeholder="Post title" required>
+                                    <input type="text" name="tag" placeholder="Tag">
+                                    <input type="file" id="image-input" accept="image/*">
+                                    <button type="button" id="upload-btn">Upload Cover Image</button>
+                                    <span id="upload-status"></span>
+                                    <button type="submit">Publish</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
