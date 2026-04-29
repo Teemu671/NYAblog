@@ -138,8 +138,9 @@
                     const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ upload.id);
                     
                     const image = await imageRes.json();
-
-                    const imagePath = image.filename;
+                    
+                    const imagePath = await image.filename;
+                    
 
                     $('.blog-banner').css('background-image', `url(https://cat0s.com/cdn/${imagePath})`);
                     $('#upload-status').text(' Image uploaded');
