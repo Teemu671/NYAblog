@@ -136,7 +136,7 @@
                     const upload = await uploadRes.json();
 
 
-                    const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ upload.id);
+                    const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ upload.image_id);
                     
                     const image = await imageRes.json();
                     console.log(image)
