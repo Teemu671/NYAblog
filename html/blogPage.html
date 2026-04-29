@@ -48,17 +48,19 @@
                         <p> </p>
                     </div>
                 </div>
-                    <div class="blog-text-container" id="comments-container">
+                    <div class="blog-text-container" >
                         <div class="blog-text">
                             <div id="editor"></div>
                             <form id="post-form">
                                 <div class="post-controls">
+                                    <input type="file" id="image-input" accept="image/*">
+                                    <button type="button" id="upload-btn">Upload Cover Image</button>
                                     <span id="upload-status"></span>
                                     <button type="submit">Publish</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="blog-text">
+                        <div class="blog-text" id="comments-container">
                             <h1>Comments</h1>
                         </div>
                         
@@ -77,17 +79,6 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
      <script src="js/blogPage.js"></script>
     <script src="js/logout.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#editor').summernote({
-                placeholder: 'Write your comment...',
-                height: 300
-            });
-            $('#sidebar-toggle').click(function() {
-                $('.sidebar').toggle();
-            });
-        });
-    </script>
     <script type="module" src="js/user.js"></script>
   </body>
 </html>
