@@ -27,6 +27,7 @@ function getPostId() {
 
 async function loadPost() {
   const postId = getPostId();
+  const banner = $('.blog-banner')[0];
   const titleElement = document.getElementById('post-title');
   const authorElement = document.getElementById('post-author');
   const metaElement = document.getElementById('post-meta');
