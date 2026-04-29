@@ -64,7 +64,7 @@ async function loadPost() {
 
     const title = post.title ? post.title.trim().split('\n')[0].slice(0, 80) : `Post #${post.post_id}`;
     const author = post.author_name || post.author_id || 'Author';
-    const date = formatDate(post.created_at);
+    const date = formatDate(post.updated_at);
     const tag = post.tag ? escapeHtml(post.tag) : 'Blog';
 
     titleElement.textContent = title;
