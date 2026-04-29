@@ -50,6 +50,17 @@ async function loadPost() {
       return;
     }
 
+    const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ post.image_id);
+                    
+    const image = await imageRes.json();
+    console.log(image)
+
+    banner.style.backgroundImage = `url(https://cat0s.com/cdn/${image.filename})`
+    banner.style.backgroundRepeat = 'no-repeat'
+    banner.style.backgroundSize = 'contain, cover'
+    banner.style.backgroundPosition = 'center'
+
+
     const title = post.title ? post.title.trim().split('\n')[0].slice(0, 80) : `Post #${post.post_id}`;
     const author = post.author_name || post.author_id || 'Author';
     const date = formatDate(post.created_at);
