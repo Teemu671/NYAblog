@@ -40,10 +40,12 @@ async function loadPost() {
   }
 
   try {
-    const response = await fetch(`${API_BASE}/blog/id/${postId}`);
-    if (!response.ok) throw new Error(response.statusText);
-    const posts = await response.json();
+    const postRes = await fetch(`${API_BASE}/blog/id/${postId}`);
+    if (!postRes.ok) throw new Error(postRes.statusText);
+    const posts = await postRes.json();
     const post = Array.isArray(posts) ? posts[0] : posts;
+
+    
 
     if (!post || !post.post_id) {
       titleElement.textContent = 'Post not found';
@@ -51,10 +53,14 @@ async function loadPost() {
       return;
     }
 
+    const userRes = await fetch(`${API_BASE}/blog/id/${post.author_id}`);
+    if (!userRes.ok) throw new Error(userRes.statusText);
+    const user = await userRes.json();
+
     const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ post.image_id);
                     
     const image = await imageRes.json();
-    console.log(image)
+    
 
     banner.style.backgroundImage = `url(https://cat0s.com/cdn/${image.filename})`
     banner.style.backgroundRepeat = 'no-repeat'
@@ -63,9 +69,10 @@ async function loadPost() {
 
 
     const title = post.title ? post.title.trim().split('\n')[0].slice(0, 80) : `Post #${post.post_id}`;
-    const author = post.author_name || post.author_id || 'Author';
+    const author = escapeHtml( user.display_name || 'Unknown');
     const date = formatDate(post.updated_at);
     const tag = post.tag ? escapeHtml(post.tag) : 'Blog';
+    
 
     titleElement.textContent = title;
     authorElement.textContent = author;
