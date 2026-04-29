@@ -136,7 +136,7 @@
 
 
                     const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ upload.id);
-                    if (!response.ok) throw new Error(response.statusText);
+                    if (!imageRes.ok) throw new Error(imageRes.statusText);
                     const image = await imageRes.json();
 
                     imagePath = image.filename;
