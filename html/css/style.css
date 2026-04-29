@@ -338,6 +338,11 @@ html, body {
         background-color: var(--btn-hover);
     }
 
+#post-body {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 /* ----------------------------- Mobile ----------------------------- */
 .mobile-sidebar {
     display: none;
