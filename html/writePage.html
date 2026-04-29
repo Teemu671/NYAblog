@@ -40,12 +40,10 @@
             <div class="blog-text-container">
                 <div class="blog-text">
                     <div id="editor"></div>
+                    <form id="post-form">
                         <div class="post-controls">
                             <input type="text" name="title" placeholder="Post title" required>
                             <input type="text" name="tag" placeholder="Tag">
-                        </div>        
-                        <form id="post-form">
-                        <div class="post-controls">
                             <input type="file" id="image-input" accept="image/*">
                             <button type="button" id="upload-btn">Upload Cover Image</button>
                             <span id="upload-status"></span>
@@ -66,6 +64,8 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
 
     <script>
+        import { User } from "./js/class/user.js";
+
         $(document).ready(function() {
             $('#editor').summernote({
                 placeholder: 'Write your blog...',
@@ -127,19 +127,21 @@
                 formData.append('sampleFile', file);
 
                 try {
-                    await fetch('https://cat0s.com:3001/cdn/upload', {
+                    const uploadRes = await fetch('https://cat0s.com:3001/cdn/upload', {
                         method: 'POST',
                         headers: { 'Authorization': `Bearer ${token}` },
                         body: formData
                     });
+                    const upload = await uploadRes.json();
 
-                    const galleryRes = await fetch('https://cat0s.com:3001/cdn/gallery', {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    const gallery = await galleryRes.json();
-                    uploadedImageId = gallery[gallery.length - 1].image_id;
 
-                    $('.blog-banner').css('background-image', `url(https://cat0s.com:3001/cdn/image/${uploadedImageId})`);
+                    const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ upload.id);
+                    if (!response.ok) throw new Error(response.statusText);
+                    const image = await imageRes.json();
+
+                    imagePath = image.filename;
+
+                    $('.blog-banner').css('background-image', `url(https://cat0s.com/files/${imagePath})`);
                     $('#upload-status').text(' Image uploaded');
                 } catch (err) {
                     alert('Upload failed: ' + err.message);
