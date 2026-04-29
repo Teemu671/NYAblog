@@ -36,7 +36,7 @@ function formatDate(value) {
   });
 }
 
-function createPostCard(post, user, image, profile) {
+function createPostCard(post, user, image, pfp) {
   
   
 
@@ -55,7 +55,7 @@ function createPostCard(post, user, image, profile) {
       <div class="card-body">
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>
-        <img src="${ profile.filename ? 'https://cat0s.com/cdn/'+profile.filename : 'https://cat0s.com/cdn/placeholder.png'}" class="card-img-top" alt="pic"><div class="post-meta">${author} • ${date}</div>
+        <img src="${ user.avatar_id ? 'https://cat0s.com/cdn/'+ pfp.filename: 'https://cat0s.com/cdn/placeholder.png'}" class="card-img-top" alt="pic"><div class="post-meta">${author} • ${date}</div>
       </div>
     </a>
   `;
@@ -79,12 +79,14 @@ async function loadPosts() {
     container.innerHTML = '';
     posts.forEach(post => 
       {
-        const imgRes = await fetch(`${API_BASE}/cdn/image/${profile.avatar_id}`);
-        const imgData = await imgRes.json();
         const image = loadImage(post.image_id)
         const user = loadUser(post.author_id)
-        Promise.all([user,image,imgData]).then((values)=>{
-            return container.appendChild(createPostCard(post, values[0], values[1], values[2]))
+        let pfp;
+        user.then((user)=>{
+          pfp = loadUser(user.avatar_id)
+        })
+        Promise.all([user,image,pfp]).then((values)=>{
+            return container.appendChild(createPostCard(post, values[0], values[1],values[2]))
           })
         });
   } catch (error) {
@@ -110,6 +112,23 @@ async function loadUser(uid) {
   }
 };
 async function loadImage(id) {
+  try {
+    const response = await fetch(IMAGE_ENDPOINT+id);
+    if (!response.ok) throw new Error(response.statusText);
+    const image = await response.json();
+
+    if (image.length === 0) {
+      alert("image not found");
+      return;
+    }
+
+    return image;
+    
+  } catch (error) {
+ 
+  }
+}
+async function loadPfp(id) {
   try {
     const response = await fetch(IMAGE_ENDPOINT+id);
     if (!response.ok) throw new Error(response.statusText);
