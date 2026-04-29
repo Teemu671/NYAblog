@@ -206,12 +206,13 @@ async function loadPost() {
       const date = formatDate(post.updated_at);
 
       wrapper.innerHTML = `
+        <div class="card-body">
           <div class="blog-text">
           <img src="${post.image_id
               ? `https://cat0s.com/cdn/${image.filename}`
               : 'https://cat0s.com/cdn/placeholder.png'}" class="profile-pic">
               ${post.text}
-          <div class="card-body">
+         
               <div class="post-meta">${author} • ${date}</div>
           </div>
           </div>`;
