@@ -57,7 +57,6 @@
         $('.sidebar').toggle();
     });
     </script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="module">
   import { User } from './js/class/user.js';
 
@@ -72,7 +71,7 @@
     profileID = uid
   } else {
     profileID = user.id
-    changeBtn.display = 'none';
+    changeBtn.style.display = 'none';
   }
 
   function escapeHtml(t) {
