@@ -39,13 +39,13 @@
             </div>
             <div class="blog-text-container">
                 <div class="blog-text">
-                    <form id="post-form">
+                    <div id="editor"></div>
                         <div class="post-controls">
-                        <input type="text" name="title" placeholder="Post title" required>
-                        <input type="text" name="tag" placeholder="Tag">
-                        <div id="editor"></div>
-                    
-                            
+                            <input type="text" name="title" placeholder="Post title" required>
+                            <input type="text" name="tag" placeholder="Tag">
+                        </div>        
+                        <form id="post-form">
+                        <div class="post-controls">
                             <input type="file" id="image-input" accept="image/*">
                             <button type="button" id="upload-btn">Upload Cover Image</button>
                             <span id="upload-status"></span>
