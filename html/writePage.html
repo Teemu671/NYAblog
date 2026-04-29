@@ -139,7 +139,7 @@
                     
                     const image = await imageRes.json();
 
-                    imagePath = image.filename;
+                    const imagePath = image.filename;
 
                     $('.blog-banner').css('background-image', `url(https://cat0s.com/cdn/${imagePath})`);
                     $('#upload-status').text(' Image uploaded');
