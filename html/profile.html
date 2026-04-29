@@ -154,7 +154,7 @@
     const imgRes = await fetch(`${API_BASE}/cdn/image/${image_id}`);
     const imgData = await imgRes.json();
     document.querySelector('.profile-pic img').src =
-      `https://cat0s.com/files/${imgData.filename}`;
+      `https://cat0s.com/cdn/${imgData.filename}`;
   });
 
   // ── Sidebar toggle ─────────────────────────────────────────────────
