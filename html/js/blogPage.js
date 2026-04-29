@@ -199,7 +199,7 @@ async function loadPost() {
       wrapper.innerHTML = `
         <div class="card-body">
           <div class="blog-text">
-          ${post.image_id ? `<img src="https://cat0s.com/cdn/${image.filename} class="card-img-top">` : ``}
+          ${post.image_id ? `<img src="https://cat0s.com/cdn/${image.filename}" class="card-img-top">` : ``}
           ${post.text}
           <div class="post-meta">${author} • ${date}</div>
           </div>
