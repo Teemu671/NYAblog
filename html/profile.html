@@ -71,7 +71,7 @@
     const profile = await res.json();
 
     // Set username in sidebar and banner
-    document.querySelectorAll('.profile-username h1, .nav-link[href="/profile"]')
+    document.querySelectorAll('.profile-username h1')
       .forEach(el => el.textContent = profile.username);
 
     // Set avatar
