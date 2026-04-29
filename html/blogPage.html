@@ -6,8 +6,8 @@
     <title>NYAblog</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
     
   </head>
   <body>
@@ -49,17 +49,20 @@
                     </div>
                 </div>
                     <div class="blog-text-container">
-                <div class="blog-text">
-                    <div id="editor"></div>
-                    <form id="post-form">
-                        <div class="post-controls">
-                            
-                            <span id="upload-status"></span>
-                            <button type="submit">Publish</button>
+                        <div class="blog-text">
+                            <div id="editor"></div>
+                            <form id="post-form">
+                                <div class="post-controls">
+                                    <input type="text" name="title" placeholder="Post title" required>
+                                    <input type="text" name="tag" placeholder="Tag">
+                                    <input type="file" id="image-input" accept="image/*">
+                                    <button type="button" id="upload-btn">Upload Cover Image</button>
+                                    <span id="upload-status"></span>
+                                    <button type="submit">Publish</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,10 +71,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
  -->
-     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
      <script src="js/blogPage.js"></script>
     <script src="js/logout.js"></script>
     <script>
