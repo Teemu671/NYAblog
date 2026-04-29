@@ -74,7 +74,7 @@ async function loadPost() {
     const tag = post.tag ? escapeHtml(post.tag) : 'Blog';
     
     authorElement.textContent = author
-    authorElement.href = 'https://cat0s.com/profile?uid='+author
+    authorElement.href = 'https://cat0s.com/profile?uid='+post.author_id
     titleElement.textContent = title;
     metaElement.textContent = `${tag} • ${date}`;
     bodyElement.innerHTML = post.text || '';
