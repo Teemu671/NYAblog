@@ -139,7 +139,8 @@
                     const imageRes = await fetch("https://cat0s.com:3001/cdn/image/"+ upload.id);
                     
                     const image = await imageRes.json();
-                    
+                    console.log(image)
+
                     banner.style.backgroundImage = `url(https://cat0s.com/cdn/${image.filename})`
                     banner.style.backgroundRepeat = 'no-repeat'
                     banner.style.backgroundSize = 'contain, cover'
