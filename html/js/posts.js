@@ -38,6 +38,8 @@ function formatDate(value) {
 
 function createPostCard(post, user, image) {
   
+  const imgRes = await fetch(`${API_BASE}/cdn/image/${profile.avatar_id}`);
+  const imgData = await imgRes.json();
 
   
   const title = escapeHtml(formatPostTitle(post.title, post.post_id));
@@ -54,7 +56,7 @@ function createPostCard(post, user, image) {
       <div class="card-body">
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>
-        <div class="post-meta">${author} • ${date}</div>
+        <img src="${ post.image_id ? 'https://cat0s.com/cdn/'+imgData.filename : 'https://cat0s.com/cdn/placeholder.png'}" class="card-img-top" alt="pic"><div class="post-meta">${author} • ${date}</div>
       </div>
     </a>
   `;
