@@ -31,48 +31,45 @@
             <li class="mobile-login"><a class="nav-link" href="/login">Login</a></li>
             <li class="mobile-login logout-btn"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
         </ul>
-            <div class="content-area">
-                <div class="blog-banner">
-                    <div class="title-container">
-                        <div class="profile-pic"><img src="" id="post-avatar" alt=""></div>
-                        <a class="nav-link" style="margin-top:auto; margin-bottom: 1rem;" id="post-author" href="/profile"></a>
+        <div class="content-area">
+            <div class="blog-banner">
+                <div class="title-container">
+                    <div class="profile-pic"><img src="" id="post-avatar" alt=""></div>
+                    <a class="nav-link" style="margin-top:auto; margin-bottom: 1rem;" id="post-author" href="/profile"></a>
+                </div>
+            </div>
+            <div class="blog-text-container">
+                <div class="blog-text" id="post-display">
+                    <h2 id="post-title"> </h2>
+                    <div class="post-meta" id="post-meta"></div>
+                    <div id="post-body">
+                        <p> </p>
                     </div>
                 </div>
-                <div class="blog-text-container">
-                    <div class="blog-text" id="post-display">
-                        <h2 id="post-title"> </h2>
-                        <div class="post-meta" id="post-meta"></div>
-                        <div id="post-body">
-                            <p> </p>
-                        </div>
-                    </div>
                     <div class="blog-text-container">
-                        <div class="blog-text">
-                            <div id="editor"></div>
-                            <form id="post-form">
-                                <div class="post-controls">
-                                    <input type="text" name="title" placeholder="Post title" required>
-                                    <input type="text" name="tag" placeholder="Tag">
-                                    <input type="file" id="image-input" accept="image/*">
-                                    <button type="button" id="upload-btn">Upload Cover Image</button>
-                                    <span id="upload-status"></span>
-                                    <button type="submit">Publish</button>
-                                </div>
-                            </form>
+                <div class="blog-text">
+                    <div id="editor"></div>
+                    <form id="post-form">
+                        <div class="post-controls">
+                            
+                            <span id="upload-status"></span>
+                            <button type="submit">Publish</button>
                         </div>
-                    </div>
+                    </form>
+                </div>
+            </div>
                 </div>
             </div>
         </div>
-    
+    </div>
 <!-- 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
  -->
-
+     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+    
      <script src="js/blogPage.js"></script>
     <script src="js/logout.js"></script>
     <script>
