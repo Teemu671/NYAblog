@@ -28,6 +28,7 @@ function getPostId() {
 async function loadPost() {
   const postId = getPostId();
   const banner = $('.blog-banner')[0];
+  const authorElement = document.getElementById('post-author');
   const titleElement = document.getElementById('post-title');
   const metaElement = document.getElementById('post-meta');
   const bodyElement = document.getElementById('post-body');
@@ -66,13 +67,14 @@ async function loadPost() {
     banner.style.backgroundSize = 'contain, cover'
     banner.style.backgroundPosition = 'center'
 
-
+    
     const title = post.title ? post.title.trim().split('\n')[0].slice(0, 80) : `Post #${post.post_id}`;
     const author = escapeHtml( user.display_name || 'Unknown');
     const date = formatDate(post.updated_at);
     const tag = post.tag ? escapeHtml(post.tag) : 'Blog';
     
-
+    authorElement.textContent = author
+    authorElement.href = 'https://cat0s.com/profile?uid='+author
     titleElement.textContent = title;
     metaElement.textContent = `${tag} • ${date}`;
     bodyElement.innerHTML = post.text || '';
