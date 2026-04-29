@@ -23,8 +23,6 @@ $(document).ready(function() {
 
         
         const text = $('#editor').summernote('code');
-        const title = $('input[name="title"]').val().trim();
-        const tag = $('input[name="tag"]').val().trim();
         const storedUser = sessionStorage.getItem('user');
         const user = storedUser ? JSON.parse(storedUser) : null;
         const token = user?.token;
