@@ -55,10 +55,12 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="js/logout.js"></script>
     <script>
-    $('#sidebar-toggle').click(function() {
+    $(document).ready(function() {
+      $('#sidebar-toggle').click(function() {
         $('.sidebar').toggle();
+      });
     });
-    </script>
+  </script>
     <script type="module">
   import { User } from './js/class/user.js';
 
