@@ -6,4 +6,7 @@ if (user.isLoggedIn) {
   document.querySelectorAll('.nav-link[href="/login"], .mobile-login').forEach(el => {
     el.style.display = 'none';
   });
+  document.getElementById('logout-btn').style.display = '';
+} else {
+  document.getElementById('logout-btn').style.display = 'none';
 }

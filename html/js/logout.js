@@ -7,6 +7,7 @@ const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
 
-    // Redirect to login page
-    router.push("/login")
+    window.location.reload();
+    //router.push("/login")
 };
+
