@@ -313,7 +313,7 @@ html, body {
     flex-direction: column;
     gap: 0rem;
     padding: 1rem;
-    width: 95%;
+    width: 100%;
     border-radius: 10px;
 }
 
