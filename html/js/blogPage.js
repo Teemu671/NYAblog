@@ -175,7 +175,7 @@ async function loadPost() {
     metaElement.textContent = `${tag} • ${date}`;
     bodyElement.innerHTML = post.text || '';
 
-    const res = await fetch(`${API_BASE}/blog/comments/${post.postId}`);
+    const res = await fetch(`https://cat0s.com:3001/blog/comments/`+postId);
     const comments = await res.json();
     
 
