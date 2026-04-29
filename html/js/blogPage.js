@@ -96,8 +96,7 @@ $(document).ready(function() {
 
 
 const postId = getPostId();
-        
-v
+
     
 
 
