@@ -20,7 +20,7 @@ const blogRouter = express.Router()
 
 blogRouter.get("/all",async(req,res) => {
     try {
-        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts order by post_id desc;"
+        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where parent_id is null order by post_id desc;"
         const result = await query(sql)
         const rows = result.rows ? result.rows : []
         return res.status(200).json(rows)
@@ -42,7 +42,6 @@ blogRouter.get("/tag/:tag",async(req,res) => {
 })
 blogRouter.get("/id/:postID",async(req,res) => {
     try {
-        const skip = Number(req.params.skip);
         const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where post_id = $1"
         const result = await query(sql,[req.params.postID])
         return res.status(200).json(result.rows ? result.rows[0] : null)
@@ -62,6 +61,14 @@ blogRouter.get("/uid/:uid",async(req,res) => {
         return res.status(500).json({error: "Server error"})
     }
 })
-
-
+blogRouter.get("/comments/:postID",async(req,res) => {
+    try {
+        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where parent_id = $1"
+        const result = await query(sql,[req.params.postID])
+        return res.status(200).json(result.rows ? result.rows[0] : null)
+    } catch (error) {
+        res.statusMessage = "Server error"
+        return res.status(500).json({error: "Server error"})
+    }
+})
 module.exports = { blogRouter }
