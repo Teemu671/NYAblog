@@ -81,7 +81,7 @@ async function loadPosts() {
       {
         const image = loadImage(post.image_id)
         const user = loadUser(post.author_id)
-        let pfp;
+        var pfp;
         user.then((user)=>{
           pfp = loadUser(user.avatar_id)
         })
