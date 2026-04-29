@@ -54,7 +54,7 @@ function createPostCard(post, user, image) {
       <div class="card-body">
         <span class="post-tag">${tag}</span>
         <h5 class="txtcolor">${title}</h5>
-        <div class="post-meta">${author} ${date}</div>
+        <div class="post-meta">${author} • ${date}</div>
       </div>
     </a>
   `;
