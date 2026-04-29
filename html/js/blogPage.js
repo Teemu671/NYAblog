@@ -29,7 +29,6 @@ async function loadPost() {
   const postId = getPostId();
   const banner = $('.blog-banner')[0];
   const titleElement = document.getElementById('post-title');
-  const authorElement = document.getElementById('post-author');
   const metaElement = document.getElementById('post-meta');
   const bodyElement = document.getElementById('post-body');
 
@@ -75,7 +74,6 @@ async function loadPost() {
     
 
     titleElement.textContent = title;
-    authorElement.textContent = author;
     metaElement.textContent = `${tag} • ${date}`;
     bodyElement.innerHTML = post.text || '';
   } catch (error) {
