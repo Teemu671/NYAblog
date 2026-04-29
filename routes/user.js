@@ -87,19 +87,19 @@ userRouter.post("/register",async(req,res) => {
                   return res.status(500).json({error: "Server error"})
                 }
               } else {
-                res.statusMessage = 'Invalid register'
+                res.statusMessage = 'There is an account already with your username or email.'
                 return res.status(401).json({error: 'User exists'})
               }
             } else {
-              res.statusMessage = 'Invalid register'
+              res.statusMessage = 'Password must be at least 8 characters have 1 upper, 1 lower, 1 special, 1 number character.'
               return res.status(401).json({error: 'Invalid password'})
             }
           } else {
-            res.statusMessage = 'Invalid register'
+            res.statusMessage = 'Give a possible email.'
             return res.status(401).json({error: 'Invalid email'})
           }
         } else {
-          res.statusMessage = 'Invalid register'
+          res.statusMessage = 'Username must be 3 to 16 characters.'
           return res.status(401).json({error: 'Invalid username'})
         }
       } else {
