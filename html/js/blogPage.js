@@ -57,7 +57,6 @@ $(document).ready(function() {
 
     $('#upload-btn').click(async function () {
         const file = $('#image-input')[0].files[0];
-        const banner = $('.blog-banner')[0];
         if (!file) { alert('Pick an image first.'); return; }
 
         const storedUser = sessionStorage.getItem('user');
@@ -80,10 +79,6 @@ $(document).ready(function() {
             
             const image = await imageRes.json();
 
-            banner.style.backgroundImage = `url(https://cat0s.com/cdn/${image.filename})`
-            banner.style.backgroundRepeat = 'no-repeat'
-            banner.style.backgroundSize = 'contain, cover'
-            banner.style.backgroundPosition = 'center'
             
             $('#upload-status').text(' Image uploaded');
         } catch (err) {
@@ -190,10 +185,6 @@ async function loadPost() {
       const wrapper = document.createElement('div');
       wrapper.className = 'card-wrapper';
 
-//       `<div class="blog-text">
-//           
-//       </div>`
-
       const userRes = await fetch(`${API_BASE}/user/uid/${post.author_id}`);
       if (!userRes.ok) throw new Error(userRes.statusText);
       const user = await userRes.json();
@@ -210,7 +201,7 @@ async function loadPost() {
           <div class="blog-text">
           <img src="${post.image_id
               ? `https://cat0s.com/cdn/${image.filename}`
-              : 'https://cat0s.com/cdn/placeholder.png'}" class="profile-pic">
+              : 'https://cat0s.com/cdn/placeholder.png'}" class="card-img-top">
               ${post.text}
          
               <div class="post-meta">${author} • ${date}</div>
