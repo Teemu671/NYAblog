@@ -52,7 +52,7 @@ blogRouter.get("/id/:postID",async(req,res) => {
 })
 blogRouter.get("/uid/:uid",async(req,res) => {
     try {
-        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where author_id = $1 order by post_id desc"
+        const sql = "select title, post_id, image_id, parent_id, author_id, text, tag, updated_at from posts where author_id = $1 and parent_id is null order by post_id desc"
         const result = await query(sql,[req.params.uid])
         const rows = result.rows ? result.rows : []
         return res.status(200).json(rows)
@@ -65,7 +65,8 @@ blogRouter.get("/comments/:postID",async(req,res) => {
     try {
         const sql = "select post_id, image_id, author_id, text, tag, updated_at from posts where parent_id = $1"
         const result = await query(sql,[req.params.postID])
-        return res.status(200).json(result.rows ? result.rows : null)
+        const rows = result.rows ? result.rows : []
+        return res.status(200).json(rows)
     } catch (error) {
         res.statusMessage = "Server error"
         return res.status(500).json({error: "Server error"})
