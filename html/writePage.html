@@ -117,6 +117,7 @@
 
             $('#upload-btn').click(async function () {
                 const file = $('#image-input')[0].files[0];
+                const banner = $('.blog-banner')[0];
                 if (!file) { alert('Pick an image first.'); return; }
 
                 const storedUser = sessionStorage.getItem('user');
@@ -139,8 +140,13 @@
                     
                     const image = await imageRes.json();
                     
-                    $('.blog-banner').css('background-image', `url(https://cat0s.com/cdn/${image.filename})`);
+                    banner.style.backgroundImage = `url(https://cat0s.com/cdn/${image.filename})`
+                    banner.style.backgroundRepeat = 'no-repeat'
+                    banner.style.backgroundSize = 'contain, cover'
+                    banner.style.backgroundPosition = 'center'
+
                     
+
 
                     
                     $('#upload-status').text(' Image uploaded');
