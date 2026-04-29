@@ -70,7 +70,9 @@
     const res = await fetch(`${API_BASE}/user/uid/${user.id}`);
     const profile = await res.json();
 
-    
+    // Set username in sidebar and banner
+    document.querySelectorAll('.profile-username h1, .nav-link[href="/profile"]')
+      .forEach(el => el.textContent = profile.username);
 
     // Set avatar
     if (profile.avatar_id) {
